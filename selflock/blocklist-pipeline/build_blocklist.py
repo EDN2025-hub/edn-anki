@@ -59,6 +59,13 @@ TPD_REDIRECTORS = {"pdude.link", "tpd.deals", "porndude.link"}
 TPD_OWN = {"theporndude.com", "porndude.link", "pdude.link", "tpd.deals",
            "porndudecasting.com", "porndudedeutsch.com", "porndudeshop.com"}
 
+# Marques de plateformes multi-TLD (petites annonces/hébergement par pays) :
+# quel que soit le TLD (locanto.com.br, locanto.cl…), on ne bloque jamais le
+# domaine entier — uniquement les sous-domaines explicitement adultes.
+PLATFORM_BRANDS = {"locanto", "vivastreet", "livedoor", "olx", "craigslist",
+                   "gumtree", "kijiji", "leboncoin", "marktplaats", "subito",
+                   "milanuncios", "blocket", "finn", "avito"}
+
 # Suffixes publics à deux niveaux les plus courants (sous-ensemble PSL)
 TWO_LEVEL_SUFFIXES = {
     "co.uk", "org.uk", "me.uk", "ac.uk", "gov.uk",
@@ -367,7 +374,7 @@ def main() -> None:
                                "reason": "allowlist"})
             continue
 
-        if reg in platforms:
+        if reg in platforms or reg.split(".")[0] in PLATFORM_BRANDS:
             platform_hits[reg] = platform_hits.get(reg, 0) + 1
             # contenu hébergé (xyz.blogspot.com) -> sous-domaine exact
             if host != reg and host.count(".") > reg.count("."):
@@ -398,6 +405,14 @@ def main() -> None:
     if args.merge_external:
         merged_external = external_consensus(ext_lists, allow, platforms)
         merged_external -= set(blocked)
+        # jamais un domaine que ThePornDude lui-même classe non-NSFW
+        # (ex: utorrent.com listé par erreur dans des listes publiques)
+        excluded_regs = {registrable(e["domain"]) for e in excluded_non_nsfw
+                         if e.get("domain")}
+        merged_external -= excluded_regs
+        # jamais une marque de plateforme multi-TLD (locanto.cl…)
+        merged_external = {d for d in merged_external
+                           if d.split(".")[0] not in PLATFORM_BRANDS}
         # garde : mêmes assertions que la liste principale
         assert not (merged_external & allow)
         assert not (merged_external & platforms)

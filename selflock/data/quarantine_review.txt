@@ -1,0 +1,2 @@
+{"domain": "happypancake.se", "host": "happypancake.se", "category": "Hall of Fame", "id": 5231, "dead": false, "reason": "allowlist"}
+{"domain": "tinder.com", "host": "tinder.com", "category": "Hookup Sites", "id": 12735, "dead": false, "reason": "allowlist"}

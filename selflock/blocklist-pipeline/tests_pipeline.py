@@ -162,7 +162,16 @@ if os.path.exists(bl_path):
                       "tinder.com", "badoo.com", "bumble.com", "meetic.fr",
                       # portails/FAI dont seuls des sous-domaines sont adultes
                       "interia.pl", "terra.com.br", "free.fr",
-                      "livedoor.jp", "locanto.com"}
+                      "livedoor.jp", "locanto.com",
+                      # marques plateformes multi-TLD (petites annonces pays)
+                      "locanto.com.br", "vivastreet.co.uk", "olx.pl"}
+    rot_path = os.path.join(data_dir, "rotation_rules.json")
+    if os.path.exists(rot_path):
+        rot_final = json.load(open(rot_path))
+        check("données finales: aucune regex pour une marque plateforme",
+              not any(k.split(".")[0] in {"locanto", "vivastreet", "livedoor",
+                                          "olx", "craigslist"}
+                      for k in rot_final), "")
     check("données finales: logiciels/VPN/dating/portails non bloqués",
           not (blocked & NON_NSFW_KNOWN), str(blocked & NON_NSFW_KNOWN))
     inter = blocked & plat_f

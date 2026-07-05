@@ -1,0 +1,568 @@
+{"domain": "videolan.org", "url": "http://www.videolan.org/vlc/", "category": "Useful Software", "id": 666}
+{"domain": "google.com", "url": "https://www.google.com/intl/en/chrome/", "category": "Useful Software", "id": 670}
+{"domain": "jdownloader.org", "url": "https://jdownloader.org/", "category": "Useful Software", "id": 692}
+{"domain": "pdude.link", "url": "https://pdude.link/istripper", "category": "Useful Software", "id": 1531}
+{"domain": "downloadhelper.net", "url": "http://www.downloadhelper.net/", "category": "Useful Software", "id": 1988}
+{"domain": "dl-x.com", "url": "https://dl-x.com/", "category": "Useful Software", "id": 3448}
+{"domain": "ftopx.com", "url": "https://ftopx.com/", "category": "Useful Software", "id": 3524}
+{"domain": "hlsloader.com", "url": "https://www.hlsloader.com/", "category": "Useful Software", "id": 4129}
+{"domain": "utorrent.com", "url": "https://www.utorrent.com/", "category": "Useful Software", "id": 4151}
+{"domain": "douga-getter.com", "url": "https://www.douga-getter.com/", "category": "Useful Software", "id": 4175}
+{"domain": "darkreader.org", "url": "https://darkreader.org/", "category": "Useful Software", "id": 5122}
+{"domain": "ublockorigin.com", "url": "https://ublockorigin.com/", "category": "Useful Software", "id": 5408}
+{"domain": "pdude.link", "url": "https://pdude.link/ipvanish", "category": "Best VPN Sites", "id": 5724}
+{"domain": "pdude.link", "url": "https://pdude.link/hideme", "category": "Best VPN Sites", "id": 5726}
+{"domain": "pdude.link", "url": "https://pdude.link/semenax", "category": "Male Enhancement Pills", "id": 6052}
+{"domain": "pdude.link", "url": "https://pdude.link/tigercloud", "category": "Best VPN Sites", "id": 6153}
+{"domain": "pdude.link", "url": "https://pdude.link/vigrxplus", "category": "Male Enhancement Pills", "id": 6168}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6255}
+{"domain": "pdude.link", "url": "https://pdude.link/betonline", "category": "Betting Sites", "id": 6256}
+{"domain": "pdude.link", "url": "https://pdude.link/sportsbetting", "category": "Betting Sites", "id": 6257}
+{"domain": "pdude.link", "url": "https://pdude.link/betus", "category": "Betting Sites", "id": 6258}
+{"domain": "pdude.link", "url": "https://pdude.link/mybookie", "category": "Betting Sites", "id": 6259}
+{"domain": "pdude.link", "url": "https://pdude.link/casumo", "category": "Betting Sites", "id": 6278}
+{"domain": "pdude.link", "url": "https://pdude.link/wildz", "category": "Betting Sites", "id": 6281}
+{"domain": "pdude.link", "url": "https://pdude.link/bcgame", "category": "Betting Sites", "id": 6286}
+{"domain": "pdude.link", "url": "https://pdude.link/betfury", "category": "Betting Sites", "id": 6287}
+{"domain": "pdude.link", "url": "https://pdude.link/bitstarz", "category": "Betting Sites", "id": 6288}
+{"domain": "pdude.link", "url": "https://pdude.link/sportsbetja", "category": "Betting Sites", "id": 6289}
+{"domain": "pdude.link", "url": "https://pdude.link/dafabet", "category": "Betting Sites", "id": 6296}
+{"domain": "pdude.link", "url": "https://pdude.link/uniquecasino", "category": "Betting Sites", "id": 6346}
+{"domain": "pdude.link", "url": "https://pdude.link/vegasplus", "category": "Betting Sites", "id": 6351}
+{"domain": "pdude.link", "url": "https://pdude.link/montecryptos", "category": "Betting Sites", "id": 6354}
+{"domain": "pdude.link", "url": "https://pdude.link/netbetfr", "category": "Betting Sites", "id": 6357}
+{"domain": "pdude.link", "url": "https://pdude.link/verajohn", "category": "Betting Sites", "id": 6364}
+{"domain": "pdude.link", "url": "https://pdude.link/casinosecret", "category": "Betting Sites", "id": 6375}
+{"domain": "pdude.link", "url": "https://pdude.link/bitcasinoja", "category": "Betting Sites", "id": 6378}
+{"domain": "pdude.link", "url": "https://pdude.link/casitabi", "category": "Betting Sites", "id": 6379}
+{"domain": "pdude.link", "url": "https://pdude.link/intercasino", "category": "Betting Sites", "id": 6380}
+{"domain": "pdude.link", "url": "https://pdude.link/lvbetpl", "category": "Betting Sites", "id": 6394}
+{"domain": "pdude.link", "url": "https://pdude.link/slotocash", "category": "Betting Sites", "id": 6407}
+{"domain": "pdude.link", "url": "https://pdude.link/libertyslots", "category": "Betting Sites", "id": 6412}
+{"domain": "pdude.link", "url": "https://pdude.link/duckyluck", "category": "Betting Sites", "id": 6413}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6416}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 6421}
+{"domain": "pdude.link", "url": "https://pdude.link/playuzu", "category": "Betting Sites", "id": 6437}
+{"domain": "pdude.link", "url": "https://pdude.link/yajuego", "category": "Betting Sites", "id": 6443}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6476}
+{"domain": "pdude.link", "url": "https://pdude.link/bitstarz", "category": "Betting Sites", "id": 6477}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6479}
+{"domain": "pdude.link", "url": "https://pdude.link/jack998", "category": "Betting Sites", "id": 6480}
+{"domain": "pdude.link", "url": "https://pdude.link/dafabetth", "category": "Betting Sites", "id": 6481}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 6485}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 6486}
+{"domain": "pdude.link", "url": "https://pdude.link/jackpotcitycasino", "category": "Betting Sites", "id": 6488}
+{"domain": "pdude.link", "url": "https://pdude.link/spincasino", "category": "Betting Sites", "id": 6489}
+{"domain": "pdude.link", "url": "https://pdude.link/rubyfortune", "category": "Betting Sites", "id": 6491}
+{"domain": "pdude.link", "url": "https://pdude.link/royalvegascasino", "category": "Betting Sites", "id": 6492}
+{"domain": "pdude.link", "url": "https://pdude.link/playojo", "category": "Betting Sites", "id": 6494}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 6498}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6533}
+{"domain": "pdude.link", "url": "https://pdude.link/bet9ja", "category": "Betting Sites", "id": 6534}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6543}
+{"domain": "pdude.link", "url": "https://pdude.link/netbetro", "category": "Betting Sites", "id": 6546}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6562}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 6566}
+{"domain": "pdude.link", "url": "https://pdude.link/casumo", "category": "Betting Sites", "id": 6591}
+{"domain": "pdude.link", "url": "https://pdude.link/kalevalakasino", "category": "Betting Sites", "id": 6593}
+{"domain": "porn-app.com", "url": "https://porn-app.com/?sid=theporndude", "category": "Useful Software", "id": 6600}
+{"domain": "pdude.link", "url": "https://pdude.link/bethard", "category": "Betting Sites", "id": 6622}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 6627}
+{"domain": "pdude.link", "url": "https://pdude.link/rojabet", "category": "Betting Sites", "id": 6630}
+{"domain": "pdude.link", "url": "https://pdude.link/bacanaplay", "category": "Betting Sites", "id": 6632}
+{"domain": "pdude.link", "url": "https://pdude.link/inkabet", "category": "Betting Sites", "id": 6634}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 6635}
+{"domain": "pdude.link", "url": "https://pdude.link/casinome", "category": "Betting Sites", "id": 6642}
+{"domain": "pdude.link", "url": "https://pdude.link/casumo", "category": "Betting Sites", "id": 6644}
+{"domain": "pdude.link", "url": "https://pdude.link/bitstarz", "category": "Betting Sites", "id": 6645}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6652}
+{"domain": "pdude.link", "url": "https://pdude.link/bitstarz", "category": "Betting Sites", "id": 6658}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 6662}
+{"domain": "pdude.link", "url": "https://pdude.link/energycasino", "category": "Betting Sites", "id": 6684}
+{"domain": "pdude.link", "url": "https://pdude.link/lvbet", "category": "Betting Sites", "id": 6685}
+{"domain": "pdude.link", "url": "https://pdude.link/cadabrus", "category": "Betting Sites", "id": 6686}
+{"domain": "pdude.link", "url": "https://pdude.link/rabona", "category": "Betting Sites", "id": 6688}
+{"domain": "pdude.link", "url": "https://pdude.link/clubvulkan", "category": "Betting Sites", "id": 6695}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 6713}
+{"domain": "pdude.link", "url": "https://pdude.link/getslots", "category": "Betting Sites", "id": 6719}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6720}
+{"domain": "pdude.link", "url": "https://pdude.link/bets10", "category": "Betting Sites", "id": 6729}
+{"domain": "pdude.link", "url": "https://pdude.link/superbahis", "category": "Betting Sites", "id": 6730}
+{"domain": "pdude.link", "url": "https://pdude.link/casinometropol", "category": "Betting Sites", "id": 6732}
+{"domain": "pdude.link", "url": "https://pdude.link/casinomaxi", "category": "Betting Sites", "id": 6733}
+{"domain": "pdude.link", "url": "https://pdude.link/mobilbahis", "category": "Betting Sites", "id": 6734}
+{"domain": "pdude.link", "url": "https://pdude.link/supertotobet", "category": "Betting Sites", "id": 6735}
+{"domain": "pdude.link", "url": "https://pdude.link/tipobet365", "category": "Betting Sites", "id": 6739}
+{"domain": "pdude.link", "url": "https://pdude.link/superbetin", "category": "Betting Sites", "id": 6740}
+{"domain": "pdude.link", "url": "https://pdude.link/casinofriday", "category": "Betting Sites", "id": 6744}
+{"domain": "pdude.link", "url": "https://pdude.link/wildz", "category": "Betting Sites", "id": 6747}
+{"domain": "pdude.link", "url": "https://pdude.link/roobet", "category": "Betting Sites", "id": 6772}
+{"domain": "pdude.link", "url": "https://pdude.link/bitstarz", "category": "Betting Sites", "id": 6776}
+{"domain": "pdude.link", "url": "https://pdude.link/superslots", "category": "Betting Sites", "id": 6794}
+{"domain": "pdude.link", "url": "https://pdude.link/bollywoodcasino", "category": "Betting Sites", "id": 6799}
+{"domain": "pdude.link", "url": "https://pdude.link/bet7", "category": "Betting Sites", "id": 6802}
+{"domain": "pdude.link", "url": "https://pdude.link/vulkanvegaspl", "category": "Betting Sites", "id": 6807}
+{"domain": "pdude.link", "url": "https://pdude.link/vilavpn", "category": "Best VPN Sites", "id": 6882}
+{"domain": "pdude.link", "url": "https://pdude.link/happyluke", "category": "Betting Sites", "id": 7023}
+{"domain": "pdude.link", "url": "https://pdude.link/casinopurple", "category": "Betting Sites", "id": 7236}
+{"domain": "pdude.link", "url": "https://pdude.link/ing168", "category": "Betting Sites", "id": 7548}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7602}
+{"domain": "pdude.link", "url": "https://pdude.link/librabet", "category": "Betting Sites", "id": 7650}
+{"domain": "pdude.link", "url": "https://pdude.link/rabonait", "category": "Betting Sites", "id": 7651}
+{"domain": "pdude.link", "url": "https://pdude.link/betinia", "category": "Betting Sites", "id": 7652}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7695}
+{"domain": "pdude.link", "url": "https://pdude.link/gunsbetpt", "category": "Betting Sites", "id": 7711}
+{"domain": "pdude.link", "url": "https://pdude.link/gunsbetar", "category": "Betting Sites", "id": 7723}
+{"domain": "pdude.link", "url": "https://pdude.link/lokicasino", "category": "Betting Sites", "id": 7724}
+{"domain": "pdude.link", "url": "https://pdude.link/meritroyalbet", "category": "Betting Sites", "id": 7738}
+{"domain": "pdude.link", "url": "https://pdude.link/yabosports", "category": "Betting Sites", "id": 7739}
+{"domain": "pdude.link", "url": "https://pdude.link/luckydaysth", "category": "Betting Sites", "id": 7758}
+{"domain": "pdude.link", "url": "https://pdude.link/venusgame", "category": "Betting Sites", "id": 7771}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7806}
+{"domain": "pdude.link", "url": "https://pdude.link/88100", "category": "Betting Sites", "id": 7827}
+{"domain": "pdude.link", "url": "https://pdude.link/manbetx", "category": "Betting Sites", "id": 7829}
+{"domain": "pdude.link", "url": "https://pdude.link/virilblue", "category": "Male Enhancement Pills", "id": 7843}
+{"domain": "pdude.link", "url": "https://pdude.link/hthbet", "category": "Betting Sites", "id": 7844}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7880}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7881}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7882}
+{"domain": "pdude.link", "url": "https://pdude.link/1xbet", "category": "Betting Sites", "id": 7883}
+{"domain": "pdude.link", "url": "https://pdude.link/truefortune", "category": "Betting Sites", "id": 7892}
+{"domain": "pdude.link", "url": "https://pdude.link/truefortune", "category": "Betting Sites", "id": 7893}
+{"domain": "pdude.link", "url": "https://pdude.link/truefortune", "category": "Betting Sites", "id": 7894}
+{"domain": "pdude.link", "url": "https://pdude.link/truefortune", "category": "Betting Sites", "id": 7895}
+{"domain": "pdude.link", "url": "https://pdude.link/ayxcom", "category": "Betting Sites", "id": 7909}
+{"domain": "pdude.link", "url": "https://pdude.link/virilbluees", "category": "Male Enhancement Pills", "id": 7911}
+{"domain": "pdude.link", "url": "https://pdude.link/jiuqi88", "category": "Betting Sites", "id": 7920}
+{"domain": "pdude.link", "url": "https://pdude.link/newvegas", "category": "Betting Sites", "id": 7971}
+{"domain": "pdude.link", "url": "https://pdude.link/leyu", "category": "Betting Sites", "id": 7978}
+{"domain": "pdude.link", "url": "https://pdude.link/potenzablu", "category": "Male Enhancement Pills", "id": 7997}
+{"domain": "pdude.link", "url": "https://pdude.link/smashup", "category": "Betting Sites", "id": 8083}
+{"domain": "pdude.link", "url": "https://pdude.link/wildcasino", "category": "Betting Sites", "id": 8090}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 8092}
+{"domain": "pdude.link", "url": "https://pdude.link/happylukevn", "category": "Betting Sites", "id": 8252}
+{"domain": "pdude.link", "url": "https://pdude.link/livecasinohouse", "category": "Betting Sites", "id": 8253}
+{"domain": "pdude.link", "url": "https://pdude.link/stakecom", "category": "Betting Sites", "id": 8394}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 8397}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 8398}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 8399}
+{"domain": "pdude.link", "url": "https://pdude.link/oshi", "category": "Betting Sites", "id": 8400}
+{"domain": "pdude.link", "url": "https://pdude.link/593kf", "category": "Betting Sites", "id": 8519}
+{"domain": "pdude.link", "url": "https://pdude.link/rocketplay", "category": "Betting Sites", "id": 8543}
+{"domain": "pdude.link", "url": "https://pdude.link/abocasinoit", "category": "Betting Sites", "id": 8547}
+{"domain": "pdude.link", "url": "https://pdude.link/spinawayno", "category": "Betting Sites", "id": 8550}
+{"domain": "pdude.link", "url": "https://pdude.link/whitelionbetsth", "category": "Betting Sites", "id": 8562}
+{"domain": "pdude.link", "url": "https://pdude.link/whitelionbetsar", "category": "Betting Sites", "id": 8563}
+{"domain": "pdude.link", "url": "https://pdude.link/whitelionbetsvi", "category": "Betting Sites", "id": 8565}
+{"domain": "pdude.link", "url": "https://pdude.link/casinokakadunl", "category": "Betting Sites", "id": 8567}
+{"domain": "pdude.link", "url": "https://pdude.link/casinokakadufi", "category": "Betting Sites", "id": 8568}
+{"domain": "pdude.link", "url": "https://pdude.link/casinokakaduno", "category": "Betting Sites", "id": 8569}
+{"domain": "pdude.link", "url": "https://pdude.link/maximalwinssv", "category": "Betting Sites", "id": 8572}
+{"domain": "pdude.link", "url": "https://pdude.link/maximalwinsit", "category": "Betting Sites", "id": 8573}
+{"domain": "pdude.link", "url": "https://pdude.link/maximalwinsfr", "category": "Betting Sites", "id": 8574}
+{"domain": "pdude.link", "url": "https://pdude.link/cazimbocs", "category": "Betting Sites", "id": 8580}
+{"domain": "pdude.link", "url": "https://pdude.link/cazimbofi", "category": "Betting Sites", "id": 8581}
+{"domain": "pdude.link", "url": "https://pdude.link/cazimboit", "category": "Betting Sites", "id": 8583}
+{"domain": "pdude.link", "url": "https://pdude.link/cazimbono", "category": "Betting Sites", "id": 8584}
+{"domain": "pdude.link", "url": "https://pdude.link/supacasi", "category": "Betting Sites", "id": 8589}
+{"domain": "pdude.link", "url": "https://pdude.link/bitcasinoko", "category": "Betting Sites", "id": 8590}
+{"domain": "pdude.link", "url": "https://pdude.link/lokicasino", "category": "Betting Sites", "id": 8591}
+{"domain": "pdude.link", "url": "https://pdude.link/bitcasinoth", "category": "Betting Sites", "id": 8592}
+{"domain": "pdude.link", "url": "https://pdude.link/bitcasinovi", "category": "Betting Sites", "id": 8593}
+{"domain": "pdude.link", "url": "https://pdude.link/sportsbetth", "category": "Betting Sites", "id": 8595}
+{"domain": "pdude.link", "url": "https://pdude.link/sportsbetvi", "category": "Betting Sites", "id": 8596}
+{"domain": "pdude.link", "url": "https://pdude.link/sportsbetfr", "category": "Betting Sites", "id": 8598}
+{"domain": "pdude.link", "url": "https://pdude.link/lokicasinocs", "category": "Betting Sites", "id": 8599}
+{"domain": "pdude.link", "url": "https://pdude.link/lokicasinosl", "category": "Betting Sites", "id": 8600}
+{"domain": "pdude.link", "url": "https://pdude.link/lvbetth", "category": "Betting Sites", "id": 8601}
+{"domain": "pdude.link", "url": "https://pdude.link/supacasipt", "category": "Betting Sites", "id": 8602}
+{"domain": "pdude.link", "url": "https://pdude.link/gratogana", "category": "Betting Sites", "id": 8603}
+{"domain": "pdude.link", "url": "https://pdude.link/usa567", "category": "Betting Sites", "id": 8620}
+{"domain": "pdude.link", "url": "https://pdude.link/staycasino", "category": "Betting Sites", "id": 8625}
+{"domain": "pdude.link", "url": "https://pdude.link/powerslots", "category": "Betting Sites", "id": 8626}
+{"domain": "pdude.link", "url": "https://pdude.link/rocketpotjp", "category": "Betting Sites", "id": 8628}
+{"domain": "pdude.link", "url": "https://pdude.link/divasfi", "category": "Betting Sites", "id": 8631}
+{"domain": "pdude.link", "url": "https://pdude.link/divasno", "category": "Betting Sites", "id": 8632}
+{"domain": "pdude.link", "url": "https://pdude.link/divaspt", "category": "Betting Sites", "id": 8633}
+{"domain": "pdude.link", "url": "https://pdude.link/empire777ja", "category": "Betting Sites", "id": 8634}
+{"domain": "pdude.link", "url": "https://pdude.link/empire777th", "category": "Betting Sites", "id": 8635}
+{"domain": "pdude.link", "url": "https://pdude.link/empire777vi", "category": "Betting Sites", "id": 8636}
+{"domain": "pdude.link", "url": "https://pdude.link/empire777ko", "category": "Betting Sites", "id": 8637}
+{"domain": "pdude.link", "url": "https://pdude.link/netbetpt", "category": "Betting Sites", "id": 8643}
+{"domain": "pdude.link", "url": "https://pdude.link/netbetuk", "category": "Betting Sites", "id": 8645}
+{"domain": "pdude.link", "url": "https://pdude.link/netbetit", "category": "Betting Sites", "id": 8646}
+{"domain": "pdude.link", "url": "https://pdude.link/greenspinro", "category": "Betting Sites", "id": 8654}
+{"domain": "pdude.link", "url": "https://pdude.link/greenspinpl", "category": "Betting Sites", "id": 8655}
+{"domain": "pdude.link", "url": "https://pdude.link/megaparihu", "category": "Betting Sites", "id": 8661}
+{"domain": "pdude.link", "url": "https://pdude.link/sisalit", "category": "Betting Sites", "id": 8675}
+{"domain": "pdude.link", "url": "https://pdude.link/onespincasino", "category": "Betting Sites", "id": 8686}
+{"domain": "pdude.link", "url": "https://pdude.link/miamiclubcasino", "category": "Betting Sites", "id": 8687}
+{"domain": "pdude.link", "url": "https://pdude.link/4crownscasino", "category": "Betting Sites", "id": 8690}
+{"domain": "pdude.link", "url": "https://pdude.link/zodiacbet", "category": "Betting Sites", "id": 8694}
+{"domain": "pdude.link", "url": "https://pdude.link/novibetit", "category": "Betting Sites", "id": 8715}
+{"domain": "pdude.link", "url": "https://pdude.link/sportitaliabet", "category": "Betting Sites", "id": 8719}
+{"domain": "pdude.link", "url": "https://pdude.link/6505188", "category": "Betting Sites", "id": 8893}
+{"domain": "pdude.link", "url": "https://pdude.link/5588bydr", "category": "Betting Sites", "id": 8894}
+{"domain": "pdude.link", "url": "https://pdude.link/medicagroup", "category": "Male Enhancement Pills", "id": 8966}
+{"domain": "pdude.link", "url": "https://pdude.link/sekrecikenhancement", "category": "Male Enhancement Pills", "id": 8967}
+{"domain": "pdude.link", "url": "https://pdude.link/gamdom", "category": "Betting Sites", "id": 8972}
+{"domain": "pdude.link", "url": "https://pdude.link/sklepintymnypills", "category": "Male Enhancement Pills", "id": 8976}
+{"domain": "pdude.link", "url": "https://pdude.link/redarenapills", "category": "Male Enhancement Pills", "id": 8982}
+{"domain": "pdude.link", "url": "https://pdude.link/sexshop112pills", "category": "Male Enhancement Pills", "id": 8983}
+{"domain": "pdude.link", "url": "https://pdude.link/krainadoznanpills", "category": "Male Enhancement Pills", "id": 8985}
+{"domain": "pdude.link", "url": "https://pdude.link/ditobet", "category": "Betting Sites", "id": 9005}
+{"domain": "pdude.link", "url": "https://pdude.link/conquestador", "category": "Betting Sites", "id": 9014}
+{"domain": "pdude.link", "url": "https://pdude.link/doktorabcfr", "category": "Male Enhancement Pills", "id": 9020}
+{"domain": "pdude.link", "url": "https://pdude.link/bonsko", "category": "Betting Sites", "id": 9024}
+{"domain": "pdude.link", "url": "https://pdude.link/bonsja", "category": "Betting Sites", "id": 9025}
+{"domain": "pdude.link", "url": "https://pdude.link/melbet", "category": "Betting Sites", "id": 9026}
+{"domain": "pdude.link", "url": "https://pdude.link/grandpashabet", "category": "Betting Sites", "id": 9037}
+{"domain": "vpnsites.com", "url": "https://vpnsites.com/", "category": "Best VPN Sites", "id": 9111}
+{"domain": "pdude.link", "url": "https://pdude.link/luckyniki", "category": "Betting Sites", "id": 9120}
+{"domain": "pdude.link", "url": "https://pdude.link/casinointh", "category": "Betting Sites", "id": 9133}
+{"domain": "pdude.link", "url": "https://pdude.link/betmasterth", "category": "Betting Sites", "id": 9134}
+{"domain": "pdude.link", "url": "https://pdude.link/casinoinel", "category": "Betting Sites", "id": 9135}
+{"domain": "pdude.link", "url": "https://pdude.link/lv177", "category": "Betting Sites", "id": 9150}
+{"domain": "pdude.link", "url": "https://pdude.link/winhub", "category": "Betting Sites", "id": 9222}
+{"domain": "pdude.link", "url": "https://pdude.link/phoenixsports", "category": "Betting Sites", "id": 9226}
+{"domain": "pdude.link", "url": "https://pdude.link/scb9", "category": "Betting Sites", "id": 9230}
+{"domain": "pdude.link", "url": "https://pdude.link/ltcom", "category": "Betting Sites", "id": 9442}
+{"domain": "pdude.link", "url": "https://pdude.link/dollycasinocz", "category": "Betting Sites", "id": 9490}
+{"domain": "pdude.link", "url": "https://pdude.link/dollycasinopl", "category": "Betting Sites", "id": 9491}
+{"domain": "pdude.link", "url": "https://pdude.link/dollycasinohu", "category": "Betting Sites", "id": 9492}
+{"domain": "pdude.link", "url": "https://pdude.link/dollycasinofi", "category": "Betting Sites", "id": 9493}
+{"domain": "pdude.link", "url": "https://pdude.link/dollycasinofr", "category": "Betting Sites", "id": 9494}
+{"domain": "pdude.link", "url": "https://pdude.link/dollycasinono", "category": "Betting Sites", "id": 9495}
+{"domain": "pdude.link", "url": "https://pdude.link/betvisain", "category": "Betting Sites", "id": 9878}
+{"domain": "pdude.link", "url": "https://pdude.link/betvisain", "category": "Betting Sites", "id": 9879}
+{"domain": "pdude.link", "url": "https://pdude.link/bchgames", "category": "Betting Sites", "id": 9881}
+{"domain": "pdude.link", "url": "https://pdude.link/betvisavi", "category": "Betting Sites", "id": 9886}
+{"domain": "pdude.link", "url": "https://pdude.link/betvisath", "category": "Betting Sites", "id": 9922}
+{"domain": "pdude.link", "url": "https://pdude.link/betvisaid", "category": "Betting Sites", "id": 9923}
+{"domain": "pdude.link", "url": "https://pdude.link/crickex", "category": "Betting Sites", "id": 10052}
+{"domain": "pdude.link", "url": "https://pdude.link/crickex", "category": "Betting Sites", "id": 10053}
+{"domain": "pdude.link", "url": "https://pdude.link/xccsports", "category": "Betting Sites", "id": 10093}
+{"domain": "spankbang-dl.com", "url": "https://spankbang-dl.com/", "category": "Useful Software", "id": 10206}
+{"domain": "pdude.link", "url": "https://pdude.link/tmb66", "category": "Betting Sites", "id": 10233}
+{"domain": "pdude.link", "url": "https://pdude.link/sggame8899", "category": "Betting Sites", "id": 10245}
+{"domain": "pdude.link", "url": "https://pdude.link/yameisports", "category": "Betting Sites", "id": 10259}
+{"domain": "pdude.link", "url": "https://pdude.link/afun", "category": "Betting Sites", "id": 10261}
+{"domain": "pdude.link", "url": "https://pdude.link/anyi8", "category": "Best VPN Sites", "id": 10273}
+{"domain": "pdude.link", "url": "https://pdude.link/kaiyun", "category": "Betting Sites", "id": 10287}
+{"domain": "pdude.link", "url": "https://pdude.link/hachislot", "category": "Betting Sites", "id": 10296}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10308}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10309}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10311}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10312}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10313}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10314}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10315}
+{"domain": "pdude.link", "url": "https://pdude.link/betibet", "category": "Betting Sites", "id": 10316}
+{"domain": "pdude.link", "url": "https://pdude.link/boomerangcasinocs", "category": "Betting Sites", "id": 10317}
+{"domain": "pdude.link", "url": "https://pdude.link/boomerangcasinohu", "category": "Betting Sites", "id": 10318}
+{"domain": "pdude.link", "url": "https://pdude.link/bwinph", "category": "Betting Sites", "id": 10320}
+{"domain": "pdude.link", "url": "https://pdude.link/fgfoxel", "category": "Betting Sites", "id": 10321}
+{"domain": "pdude.link", "url": "https://pdude.link/ggpoker", "category": "Betting Sites", "id": 10323}
+{"domain": "pdude.link", "url": "https://pdude.link/k9th2", "category": "Betting Sites", "id": 10328}
+{"domain": "pdude.link", "url": "https://pdude.link/k9winvi", "category": "Betting Sites", "id": 10330}
+{"domain": "pdude.link", "url": "https://pdude.link/k9winid", "category": "Betting Sites", "id": 10331}
+{"domain": "pdude.link", "url": "https://pdude.link/paripesa", "category": "Betting Sites", "id": 10349}
+{"domain": "pdude.link", "url": "https://pdude.link/bebao", "category": "Betting Sites", "id": 10363}
+{"domain": "pdude.link", "url": "https://pdude.link/tk88", "category": "Betting Sites", "id": 10379}
+{"domain": "pdude.link", "url": "https://pdude.link/sodo66", "category": "Betting Sites", "id": 10380}
+{"domain": "pdude.link", "url": "https://pdude.link/macauvenetian", "category": "Betting Sites", "id": 10389}
+{"domain": "pdude.link", "url": "https://pdude.link/gembet", "category": "Betting Sites", "id": 10404}
+{"domain": "pdude.link", "url": "https://pdude.link/ssrdog", "category": "Best VPN Sites", "id": 10474}
+{"domain": "pdude.link", "url": "https://pdude.link/fbxb6", "category": "Betting Sites", "id": 10476}
+{"domain": "pdude.link", "url": "https://pdude.link/vave", "category": "Betting Sites", "id": 10488}
+{"domain": "pdude.link", "url": "https://pdude.link/jvspines", "category": "Betting Sites", "id": 10537}
+{"domain": "pdude.link", "url": "https://pdude.link/jvspinko", "category": "Betting Sites", "id": 10538}
+{"domain": "pdude.link", "url": "https://pdude.link/flammcasino", "category": "Betting Sites", "id": 10546}
+{"domain": "pdude.link", "url": "https://pdude.link/happylukemalaysia", "category": "Betting Sites", "id": 10567}
+{"domain": "pdude.link", "url": "https://pdude.link/chipstars", "category": "Betting Sites", "id": 10568}
+{"domain": "pdude.link", "url": "https://pdude.link/i940", "category": "Betting Sites", "id": 10615}
+{"domain": "pdude.link", "url": "https://pdude.link/1win", "category": "Betting Sites", "id": 10647}
+{"domain": "pdude.link", "url": "https://pdude.link/1win", "category": "Betting Sites", "id": 10648}
+{"domain": "pdude.link", "url": "https://pdude.link/1win", "category": "Betting Sites", "id": 10649}
+{"domain": "pdude.link", "url": "https://pdude.link/fun88", "category": "Betting Sites", "id": 10652}
+{"domain": "pdude.link", "url": "https://pdude.link/yibo", "category": "Betting Sites", "id": 10663}
+{"domain": "pdude.link", "url": "https://pdude.link/yhc6p7", "category": "Betting Sites", "id": 10700}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservice", "category": "Male Enhancement Pills", "id": 10748}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservicecs", "category": "Male Enhancement Pills", "id": 10749}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillserviceda", "category": "Male Enhancement Pills", "id": 10750}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservicees", "category": "Male Enhancement Pills", "id": 10752}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservicefr", "category": "Male Enhancement Pills", "id": 10753}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillserviceit", "category": "Male Enhancement Pills", "id": 10754}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillserviceno", "category": "Male Enhancement Pills", "id": 10755}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservicept", "category": "Male Enhancement Pills", "id": 10756}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservicefi", "category": "Male Enhancement Pills", "id": 10757}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillservicese", "category": "Male Enhancement Pills", "id": 10758}
+{"domain": "pdude.link", "url": "https://pdude.link/bestpillserviceja", "category": "Male Enhancement Pills", "id": 10759}
+{"domain": "pdude.link", "url": "https://pdude.link/j8ttde", "category": "Betting Sites", "id": 10760}
+{"domain": "pdude.link", "url": "https://pdude.link/k8io", "category": "Betting Sites", "id": 10818}
+{"domain": "pdude.link", "url": "https://pdude.link/k8io", "category": "Betting Sites", "id": 10819}
+{"domain": "pdude.link", "url": "https://pdude.link/dexterbetsv", "category": "Betting Sites", "id": 10872}
+{"domain": "pdude.link", "url": "https://pdude.link/pg39", "category": "Betting Sites", "id": 10886}
+{"domain": "pdude.link", "url": "https://pdude.link/pg133", "category": "Betting Sites", "id": 10924}
+{"domain": "pdude.link", "url": "https://pdude.link/romabet", "category": "Betting Sites", "id": 10931}
+{"domain": "pdude.link", "url": "https://pdude.link/ligobet", "category": "Betting Sites", "id": 10932}
+{"domain": "pdude.link", "url": "https://pdude.link/ekings", "category": "Betting Sites", "id": 10950}
+{"domain": "pdude.link", "url": "https://pdude.link/exclusivebetes", "category": "Betting Sites", "id": 10969}
+{"domain": "pdude.link", "url": "https://pdude.link/mrxbet", "category": "Betting Sites", "id": 10970}
+{"domain": "pdude.link", "url": "https://pdude.link/exclusivebetit", "category": "Betting Sites", "id": 10971}
+{"domain": "pdude.link", "url": "https://pdude.link/exclusivebetpt", "category": "Betting Sites", "id": 10972}
+{"domain": "pdude.link", "url": "https://pdude.link/exclusivebetsv", "category": "Betting Sites", "id": 10973}
+{"domain": "pdude.link", "url": "https://pdude.link/betb88", "category": "Betting Sites", "id": 10978}
+{"domain": "pdude.link", "url": "https://pdude.link/bsportszh", "category": "Betting Sites", "id": 10988}
+{"domain": "pdude.link", "url": "https://pdude.link/lzty", "category": "Betting Sites", "id": 11011}
+{"domain": "pdude.link", "url": "https://pdude.link/richardcasino", "category": "Betting Sites", "id": 11043}
+{"domain": "pdude.link", "url": "https://pdude.link/semenhance", "category": "Male Enhancement Pills", "id": 11060}
+{"domain": "pdude.link", "url": "https://pdude.link/gt66", "category": "Betting Sites", "id": 11097}
+{"domain": "pdude.link", "url": "https://pdude.link/playfina", "category": "Betting Sites", "id": 11118}
+{"domain": "pdude.link", "url": "https://pdude.link/playfina", "category": "Betting Sites", "id": 11119}
+{"domain": "pdude.link", "url": "https://pdude.link/playfina", "category": "Betting Sites", "id": 11120}
+{"domain": "pdude.link", "url": "https://pdude.link/betplay", "category": "Betting Sites", "id": 11172}
+{"domain": "pdude.link", "url": "https://pdude.link/jabet", "category": "Betting Sites", "id": 11230}
+{"domain": "pdude.link", "url": "https://pdude.link/rapidseedbox", "category": "Useful Software", "id": 11236}
+{"domain": "pdude.link", "url": "https://pdude.link/lioncloud", "category": "Best VPN Sites", "id": 11353}
+{"domain": "pdude.link", "url": "https://pdude.link/45br", "category": "Betting Sites", "id": 11460}
+{"domain": "pdude.link", "url": "https://pdude.link/ckbet", "category": "Betting Sites", "id": 11474}
+{"domain": "pdude.link", "url": "https://pdude.link/cwin", "category": "Betting Sites", "id": 11475}
+{"domain": "pdude.link", "url": "https://pdude.link/win55", "category": "Betting Sites", "id": 11476}
+{"domain": "pdude.link", "url": "https://pdude.link/olympusbetar", "category": "Betting Sites", "id": 11534}
+{"domain": "pdude.link", "url": "https://pdude.link/olympusbethu", "category": "Betting Sites", "id": 11535}
+{"domain": "pdude.link", "url": "https://pdude.link/comicplay", "category": "Betting Sites", "id": 11556}
+{"domain": "pdude.link", "url": "https://pdude.link/highwaycasino", "category": "Betting Sites", "id": 11557}
+{"domain": "pdude.link", "url": "https://pdude.link/winportcasino", "category": "Betting Sites", "id": 11558}
+{"domain": "pdude.link", "url": "https://pdude.link/jogos365", "category": "Betting Sites", "id": 11596}
+{"domain": "pdude.link", "url": "https://pdude.link/emirbet", "category": "Betting Sites", "id": 11651}
+{"domain": "pdude.link", "url": "https://pdude.link/luckydaysza", "category": "Betting Sites", "id": 11655}
+{"domain": "pdude.link", "url": "https://pdude.link/agjogo", "category": "Betting Sites", "id": 11656}
+{"domain": "pdude.link", "url": "https://pdude.link/31bet", "category": "Betting Sites", "id": 11661}
+{"domain": "pdude.link", "url": "https://pdude.link/gmm99", "category": "Betting Sites", "id": 11662}
+{"domain": "pdude.link", "url": "https://pdude.link/zoogvpn", "category": "Best VPN Sites", "id": 12003}
+{"domain": "pdude.link", "url": "https://pdude.link/asino", "category": "Betting Sites", "id": 12305}
+{"domain": "pdude.link", "url": "https://pdude.link/dongying", "category": "Betting Sites", "id": 12626}
+{"domain": "pdude.link", "url": "https://pdude.link/xbjc888", "category": "Best VPN Sites", "id": 12721}
+{"domain": "pdude.link", "url": "https://pdude.link/shuffle", "category": "Betting Sites", "id": 12729}
+{"domain": "pdude.link", "url": "https://pdude.link/456bet", "category": "Betting Sites", "id": 12801}
+{"domain": "pdude.link", "url": "https://pdude.link/joiabet", "category": "Betting Sites", "id": 12884}
+{"domain": "pdude.link", "url": "https://pdude.link/allbet", "category": "Betting Sites", "id": 12888}
+{"domain": "pdude.link", "url": "https://pdude.link/99ruay", "category": "Betting Sites", "id": 12900}
+{"domain": "pdude.link", "url": "https://pdude.link/lofun", "category": "Best VPN Sites", "id": 12907}
+{"domain": "pdude.link", "url": "https://pdude.link/abc955", "category": "Betting Sites", "id": 12912}
+{"domain": "pdude.link", "url": "https://pdude.link/revolutioncasino", "category": "Betting Sites", "id": 12934}
+{"domain": "pdude.link", "url": "https://pdude.link/revolutioncasino", "category": "Betting Sites", "id": 12935}
+{"domain": "pdude.link", "url": "https://pdude.link/quty", "category": "Betting Sites", "id": 12959}
+{"domain": "pdude.link", "url": "https://pdude.link/luckystart", "category": "Betting Sites", "id": 12977}
+{"domain": "pdude.link", "url": "https://pdude.link/luckystart", "category": "Betting Sites", "id": 12978}
+{"domain": "pdude.link", "url": "https://pdude.link/luckystart", "category": "Betting Sites", "id": 12979}
+{"domain": "pdude.link", "url": "https://pdude.link/luckystart", "category": "Betting Sites", "id": 12980}
+{"domain": "pdude.link", "url": "https://pdude.link/luckystart", "category": "Betting Sites", "id": 12981}
+{"domain": "pdude.link", "url": "https://pdude.link/e19", "category": "Betting Sites", "id": 12998}
+{"domain": "pdude.link", "url": "https://pdude.link/j061", "category": "Betting Sites", "id": 13003}
+{"domain": "pdude.link", "url": "https://pdude.link/jinnian", "category": "Betting Sites", "id": 13005}
+{"domain": "pdude.link", "url": "https://pdude.link/rm6", "category": "Betting Sites", "id": 13006}
+{"domain": "pdude.link", "url": "https://pdude.link/777thb", "category": "Betting Sites", "id": 13007}
+{"domain": "pdude.link", "url": "https://pdude.link/mgm77", "category": "Betting Sites", "id": 13008}
+{"domain": "pdude.link", "url": "https://pdude.link/fireorangevpn", "category": "Best VPN Sites", "id": 13023}
+{"domain": "pdude.link", "url": "https://pdude.link/bet365", "category": "Betting Sites", "id": 13052}
+{"domain": "pdude.link", "url": "https://pdude.link/pp888", "category": "Betting Sites", "id": 13107}
+{"domain": "pdude.link", "url": "https://pdude.link/planetvpn", "category": "Best VPN Sites", "id": 13111}
+{"domain": "pdude.link", "url": "https://pdude.link/yun178", "category": "Betting Sites", "id": 13118}
+{"domain": "pdude.link", "url": "https://pdude.link/xbet", "category": "Betting Sites", "id": 13142}
+{"domain": "pdude.link", "url": "https://pdude.link/775", "category": "Betting Sites", "id": 13164}
+{"domain": "pdude.link", "url": "https://pdude.link/obbetting", "category": "Betting Sites", "id": 13180}
+{"domain": "pdude.link", "url": "https://pdude.link/t6", "category": "Betting Sites", "id": 13197}
+{"domain": "pdude.link", "url": "https://pdude.link/wellbet", "category": "Betting Sites", "id": 13202}
+{"domain": "pdude.link", "url": "https://pdude.link/lvyinty", "category": "Betting Sites", "id": 13213}
+{"domain": "pdude.link", "url": "https://pdude.link/2121win", "category": "Betting Sites", "id": 13219}
+{"domain": "pdude.link", "url": "https://pdude.link/zoogvpnzh", "category": "Best VPN Sites", "id": 13252}
+{"domain": "pdude.link", "url": "https://pdude.link/betwhale", "category": "Betting Sites", "id": 13288}
+{"domain": "pdude.link", "url": "https://pdude.link/reddogcasino", "category": "Betting Sites", "id": 13289}
+{"domain": "fenoaff.biz", "url": "https://fenoaff.biz/2ja58cl7", "category": "Betting Sites", "id": 13298}
+{"domain": "pdude.link", "url": "https://pdude.link/tcl99", "category": "Betting Sites", "id": 13300}
+{"domain": "pdude.link", "url": "https://pdude.link/y1tiyu", "category": "Betting Sites", "id": 13346}
+{"domain": "pdude.link", "url": "https://pdude.link/baibo", "category": "Betting Sites", "id": 13347}
+{"domain": "pdude.link", "url": "https://pdude.link/6686sports", "category": "Betting Sites", "id": 13366}
+{"domain": "pdude.link", "url": "https://pdude.link/tqvip", "category": "Betting Sites", "id": 13369}
+{"domain": "pdude.link", "url": "https://pdude.link/leonbet", "category": "Betting Sites", "id": 13398}
+{"domain": "pdude.link", "url": "https://pdude.link/leonbetel", "category": "Betting Sites", "id": 13399}
+{"domain": "pdude.link", "url": "https://pdude.link/leonbetfr", "category": "Betting Sites", "id": 13400}
+{"domain": "pdude.link", "url": "https://pdude.link/leonbetmx", "category": "Betting Sites", "id": 13402}
+{"domain": "pdude.link", "url": "https://pdude.link/leonbetth", "category": "Betting Sites", "id": 13403}
+{"domain": "pdude.link", "url": "https://pdude.link/leonbetru", "category": "Betting Sites", "id": 13404}
+{"domain": "pdude.link", "url": "https://pdude.link/twinpt", "category": "Betting Sites", "id": 13405}
+{"domain": "pdude.link", "url": "https://pdude.link/twinel", "category": "Betting Sites", "id": 13406}
+{"domain": "pdude.link", "url": "https://pdude.link/twinfr", "category": "Betting Sites", "id": 13407}
+{"domain": "pdude.link", "url": "https://pdude.link/yhyyh8", "category": "Betting Sites", "id": 13408}
+{"domain": "pdude.link", "url": "https://pdude.link/lasatlantis", "category": "Betting Sites", "id": 13432}
+{"domain": "pdude.link", "url": "https://pdude.link/58sports", "category": "Betting Sites", "id": 13458}
+{"domain": "pdude.link", "url": "https://pdude.link/goldenbet", "category": "Betting Sites", "id": 13671}
+{"domain": "pdude.link", "url": "https://pdude.link/dafabethi", "category": "Betting Sites", "id": 13694}
+{"domain": "pdude.link", "url": "https://pdude.link/rs8sports", "category": "Betting Sites", "id": 13700}
+{"domain": "pdude.link", "url": "https://pdude.link/betfinal", "category": "Betting Sites", "id": 13722}
+{"domain": "pdude.link", "url": "https://pdude.link/kaiya", "category": "Betting Sites", "id": 13727}
+{"domain": "pdude.link", "url": "https://pdude.link/casinodays", "category": "Betting Sites", "id": 13760}
+{"domain": "pdude.link", "url": "https://pdude.link/casinodays", "category": "Betting Sites", "id": 13761}
+{"domain": "pdude.link", "url": "https://pdude.link/casinodays", "category": "Betting Sites", "id": 13762}
+{"domain": "pdude.link", "url": "https://pdude.link/casinodays", "category": "Betting Sites", "id": 13763}
+{"domain": "pdude.link", "url": "https://pdude.link/casinodays", "category": "Betting Sites", "id": 13764}
+{"domain": "pdude.link", "url": "https://pdude.link/xingkong", "category": "Betting Sites", "id": 13946}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 13949}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 13950}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 13952}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 13953}
+{"domain": "pdude.link", "url": "https://pdude.link/txty", "category": "Betting Sites", "id": 13970}
+{"domain": "pdude.link", "url": "https://pdude.link/i9bet", "category": "Betting Sites", "id": 13996}
+{"domain": "pdude.link", "url": "https://pdude.link/zobet", "category": "Betting Sites", "id": 14037}
+{"domain": "pdude.link", "url": "https://pdude.link/ballspeedentertainment", "category": "Betting Sites", "id": 14168}
+{"domain": "pdude.link", "url": "https://pdude.link/bvty", "category": "Betting Sites", "id": 14331}
+{"domain": "pdude.link", "url": "https://pdude.link/pikebit", "category": "Betting Sites", "id": 14348}
+{"domain": "pdude.link", "url": "https://pdude.link/casinado", "category": "Betting Sites", "id": 14441}
+{"domain": "pdude.link", "url": "https://pdude.link/casinado", "category": "Betting Sites", "id": 14443}
+{"domain": "pdude.link", "url": "https://pdude.link/casinado", "category": "Betting Sites", "id": 14444}
+{"domain": "pdude.link", "url": "https://pdude.link/goldenguestclub", "category": "Betting Sites", "id": 14558}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14661}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14662}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14663}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14664}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14665}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14666}
+{"domain": "pdude.link", "url": "https://pdude.link/ninecasino", "category": "Betting Sites", "id": 14667}
+{"domain": "pdude.link", "url": "https://pdude.link/airbet", "category": "Betting Sites", "id": 14684}
+{"domain": "pdude.link", "url": "https://pdude.link/airbet", "category": "Betting Sites", "id": 14685}
+{"domain": "pdude.link", "url": "https://pdude.link/airbet", "category": "Betting Sites", "id": 14686}
+{"domain": "pdude.link", "url": "https://pdude.link/jiuyou", "category": "Betting Sites", "id": 14803}
+{"domain": "pdude.link", "url": "https://pdude.link/thunderpick", "category": "Betting Sites", "id": 14849}
+{"domain": "pdude.link", "url": "https://pdude.link/bmty", "category": "Betting Sites", "id": 15008}
+{"domain": "pdude.link", "url": "https://pdude.link/penguinsports", "category": "Betting Sites", "id": 15053}
+{"domain": "pdude.link", "url": "https://pdude.link/tradisibet", "category": "Betting Sites", "id": 15167}
+{"domain": "pdude.link", "url": "https://pdude.link/odsports", "category": "Betting Sites", "id": 15273}
+{"domain": "pdude.link", "url": "https://pdude.link/lottoland", "category": "Betting Sites", "id": 15291}
+{"domain": "pdude.link", "url": "https://pdude.link/roll88", "category": "Betting Sites", "id": 15505}
+{"domain": "pdude.link", "url": "https://pdude.link/milan", "category": "Betting Sites", "id": 15552}
+{"domain": "pdude.link", "url": "https://pdude.link/betvictorth", "category": "Betting Sites", "id": 15556}
+{"domain": "pdude.link", "url": "https://pdude.link/amoncasinopl", "category": "Betting Sites", "id": 15586}
+{"domain": "pdude.link", "url": "https://pdude.link/alfaman", "category": "Male Enhancement Pills", "id": 15596}
+{"domain": "pdude.link", "url": "https://pdude.link/williamhill", "category": "Betting Sites", "id": 15633}
+{"domain": "pdude.link", "url": "https://pdude.link/betanozh", "category": "Betting Sites", "id": 15865}
+{"domain": "pdude.link", "url": "https://pdude.link/mksports", "category": "Betting Sites", "id": 15897}
+{"domain": "pdude.link", "url": "https://pdude.link/dexinsports", "category": "Betting Sites", "id": 15973}
+{"domain": "pdude.link", "url": "https://pdude.link/7bitcasino", "category": "Betting Sites", "id": 15975}
+{"domain": "pdude.link", "url": "https://pdude.link/miraxcasino", "category": "Betting Sites", "id": 15976}
+{"domain": "pdude.link", "url": "https://pdude.link/katsubet", "category": "Betting Sites", "id": 15977}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16107}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16108}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16109}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16110}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16111}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16112}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16113}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16114}
+{"domain": "pdude.link", "url": "https://pdude.link/fortunepanda", "category": "Betting Sites", "id": 16116}
+{"domain": "pdude.link", "url": "https://pdude.link/ramenbet", "category": "Betting Sites", "id": 16126}
+{"domain": "pdude.link", "url": "https://pdude.link/decodecasino", "category": "Betting Sites", "id": 16185}
+{"domain": "pdude.link", "url": "https://pdude.link/thealphaboost", "category": "Male Enhancement Pills", "id": 16272}
+{"domain": "pdude.link", "url": "https://pdude.link/australianteamsports", "category": "Betting Sites", "id": 16379}
+{"domain": "pdude.link", "url": "https://pdude.link/mystino", "category": "Betting Sites", "id": 16384}
+{"domain": "pdude.link", "url": "https://pdude.link/phallomax", "category": "Male Enhancement Pills", "id": 16392}
+{"domain": "pdude.link", "url": "https://pdude.link/188betsports", "category": "Betting Sites", "id": 16502}
+{"domain": "pdude.link", "url": "https://pdude.link/jiulong", "category": "Betting Sites", "id": 16659}
+{"domain": "pdude.link", "url": "https://pdude.link/vn86", "category": "Betting Sites", "id": 16814}
+{"domain": "pdude.link", "url": "https://pdude.link/clash", "category": "Best VPN Sites", "id": 16815}
+{"domain": "pdude.link", "url": "https://pdude.link/bluecatvpn", "category": "Best VPN Sites", "id": 16864}
+{"domain": "pdude.link", "url": "https://pdude.link/yibasports", "category": "Betting Sites", "id": 16866}
+{"domain": "pdude.link", "url": "https://pdude.link/svpn", "category": "Best VPN Sites", "id": 16975}
+{"domain": "pdude.link", "url": "https://pdude.link/windream", "category": "Betting Sites", "id": 17191}
+{"domain": "pdude.link", "url": "https://pdude.link/bwinyz", "category": "Betting Sites", "id": 17380}
+{"domain": "pdude.link", "url": "https://pdude.link/slotsandcasino", "category": "Betting Sites", "id": 17386}
+{"domain": "pdude.link", "url": "https://pdude.link/galaxymacau", "category": "Betting Sites", "id": 17484}
+{"domain": "pdude.link", "url": "https://pdude.link/zunhuanginternational", "category": "Betting Sites", "id": 17930}
+{"domain": "pdude.link", "url": "https://pdude.link/vigrxdelayspray", "category": "Male Enhancement Pills", "id": 18003}
+{"domain": "pdude.link", "url": "https://pdude.link/buyextenze", "category": "Male Enhancement Pills", "id": 18004}
+{"domain": "pdude.link", "url": "https://pdude.link/hersolution", "category": "Male Enhancement Pills", "id": 18005}
+{"domain": "pdude.link", "url": "https://pdude.link/hersolutiongel", "category": "Male Enhancement Pills", "id": 18006}
+{"domain": "pdude.link", "url": "https://pdude.link/j9casino", "category": "Betting Sites", "id": 18342}
+{"domain": "pdude.link", "url": "https://pdude.link/tentenslot", "category": "Betting Sites", "id": 18346}
+{"domain": "pdude.link", "url": "https://pdude.link/7kcasino", "category": "Betting Sites", "id": 18704}
+{"domain": "pdude.link", "url": "https://pdude.link/11oysters", "category": "Male Enhancement Pills", "id": 18791}
+{"domain": "pdude.link", "url": "https://pdude.link/thb168", "category": "Betting Sites", "id": 18828}
+{"domain": "pdude.link", "url": "https://pdude.link/nn55", "category": "Betting Sites", "id": 19677}
+{"domain": "pdude.link", "url": "https://pdude.link/3jl", "category": "Betting Sites", "id": 19678}
+{"domain": "pdude.link", "url": "https://pdude.link/ouonetwork", "category": "Best VPN Sites", "id": 19812}
+{"domain": "pdude.link", "url": "https://pdude.link/daydayvpn", "category": "Best VPN Sites", "id": 20100}
+{"domain": "pdude.link", "url": "https://pdude.link/123b", "category": "Betting Sites", "id": 20486}
+{"domain": "pdude.link", "url": "https://pdude.link/ee88", "category": "Betting Sites", "id": 20487}
+{"domain": "pdude.link", "url": "https://pdude.link/dmwin", "category": "Betting Sites", "id": 20567}
+{"domain": "pdude.link", "url": "https://pdude.link/easyvpn", "category": "Best VPN Sites", "id": 20685}
+{"domain": "pdude.link", "url": "https://pdude.link/timeforpe", "category": "Male Enhancement Pills", "id": 20972}
+{"domain": "pdude.link", "url": "https://pdude.link/starworldmacaucasino", "category": "Betting Sites", "id": 21230}
+{"domain": "pdude.link", "url": "https://pdude.link/fun88vn", "category": "Betting Sites", "id": 21244}
+{"domain": "pdude.link", "url": "https://pdude.link/macaugrandlisboazh", "category": "Betting Sites", "id": 21356}
+{"domain": "pdude.link", "url": "https://pdude.link/ddvpn", "category": "Best VPN Sites", "id": 21506}
+{"domain": "pdude.link", "url": "https://pdude.link/ruyisports", "category": "Betting Sites", "id": 21596}
+{"domain": "pdude.link", "url": "https://pdude.link/rivervpn-review", "category": "Best VPN Sites", "id": 22071}
+{"domain": "pdude.link", "url": "https://pdude.link/istanastar-review", "category": "Betting Sites", "id": 22116}
+{"domain": "pdude.link", "url": "https://pdude.link/verajohnthai-review", "category": "Betting Sites", "id": 22147}
+{"domain": "pdude.link", "url": "https://pdude.link/verajohnvietnam-review", "category": "Betting Sites", "id": 22148}
+{"domain": "pdude.link", "url": "https://pdude.link/goboy-review", "category": "Best VPN Sites", "id": 22338}
+{"domain": "avsubtitles.com", "url": "https://www.avsubtitles.com/", "category": "Useful Software", "id": 22354}
+{"domain": "pdude.link", "url": "https://pdude.link/dogvpn-review", "category": "Best VPN Sites", "id": 22361}
+{"domain": "pdude.link", "url": "https://pdude.link/yunbo-entertainment-review", "category": "Betting Sites", "id": 23028}
+{"domain": "pdude.link", "url": "https://pdude.link/blueberry-accelerator-review", "category": "Best VPN Sites", "id": 23045}
+{"domain": "pdude.link", "url": "https://pdude.link/cocoduck-review", "category": "Best VPN Sites", "id": 23066}
+{"domain": "pdude.link", "url": "https://pdude.link/depth-accelerator-review", "category": "Best VPN Sites", "id": 23189}
+{"domain": "pdude.link", "url": "https://pdude.link/niuniusports-review", "category": "Betting Sites", "id": 23314}
+{"domain": "pdude.link", "url": "https://pdude.link/okoty-review", "category": "Betting Sites", "id": 23399}
+{"domain": "pdude.link", "url": "https://pdude.link/xingfu-review", "category": "Male Enhancement Pills", "id": 23603}
+{"domain": "pdude.link", "url": "https://pdude.link/f123-review", "category": "Betting Sites", "id": 23791}
+{"domain": "pdude.link", "url": "https://pdude.link/96won-review", "category": "Betting Sites", "id": 23846}
+{"domain": "pdude.link", "url": "https://pdude.link/kingpalacejp-review", "category": "Betting Sites", "id": 23849}
+{"domain": "pdude.link", "url": "https://pdude.link/kingpalacecafr-review", "category": "Betting Sites", "id": 23850}
+{"domain": "pdude.link", "url": "https://pdude.link/kingpalacefi-review", "category": "Betting Sites", "id": 23851}
+{"domain": "pdude.link", "url": "https://pdude.link/kingpalacemx-review", "category": "Betting Sites", "id": 23852}
+{"domain": "pdude.link", "url": "https://pdude.link/kingpalacebr-review", "category": "Betting Sites", "id": 23853}
+{"domain": "pdude.link", "url": "https://pdude.link/mgmmacau-review", "category": "Betting Sites", "id": 23856}
+{"domain": "pdude.link", "url": "https://pdude.link/hoki777-review", "category": "Betting Sites", "id": 23870}
+{"domain": "pdude.link", "url": "https://pdude.link/mu88-review", "category": "Betting Sites", "id": 24117}
+{"domain": "pdude.link", "url": "https://pdude.link/squad777-review", "category": "Betting Sites", "id": 24246}
+{"domain": "pdude.link", "url": "https://pdude.link/homebet-review", "category": "Betting Sites", "id": 24453}
+{"domain": "pdude.link", "url": "https://pdude.link/drift-review", "category": "Best VPN Sites", "id": 24697}
+{"domain": "pdude.link", "url": "https://pdude.link/venetian2-review", "category": "Betting Sites", "id": 24963}
+{"domain": "pdude.link", "url": "https://pdude.link/privadovpn-review", "category": "Best VPN Sites", "id": 25461}
+{"domain": "pdude.link", "url": "https://pdude.link/mimeishop-review", "category": "Male Enhancement Pills", "id": 25530}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25801}
+{"domain": "pdude.link", "url": "https://pdude.link/bingo-review", "category": "Betting Sites", "id": 25927}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25929}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25930}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25931}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25932}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25933}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25934}
+{"domain": "pdude.link", "url": "https://pdude.link/kamagraoriginal-review", "category": "Male Enhancement Pills", "id": 25935}
+{"domain": "pdude.link", "url": "https://pdude.link/hongxingyunvpn-review", "category": "Best VPN Sites", "id": 25979}
+{"domain": "pdude.link", "url": "https://pdude.link/cfmoto-review", "category": "Male Enhancement Pills", "id": 25990}
+{"domain": "pdude.link", "url": "https://pdude.link/london69-review", "category": "Betting Sites", "id": 26193}
+{"domain": "pdude.link", "url": "https://pdude.link/easyvpn-review", "category": "Best VPN Sites", "id": 26218}
+{"domain": "pdude.link", "url": "https://pdude.link/betnow-review", "category": "Betting Sites", "id": 26499}
+{"domain": "pdude.link", "url": "https://pdude.link/theonlinecasino-review", "category": "Betting Sites", "id": 26500}
+{"domain": "pdude.link", "url": "https://pdude.link/t1sports-review", "category": "Betting Sites", "id": 26818}
+{"domain": "pdude.link", "url": "https://pdude.link/dkwin-review", "category": "Betting Sites", "id": 26896}
+{"domain": "pdude.link", "url": "https://pdude.link/dkwin-review", "category": "Betting Sites", "id": 26897}
+{"domain": "pdude.link", "url": "https://pdude.link/k8casino-review", "category": "Betting Sites", "id": 26904}
+{"domain": "pdude.link", "url": "https://pdude.link/xocasino-review", "category": "Betting Sites", "id": 26919}
+{"domain": "pdude.link", "url": "https://pdude.link/yuk69-review", "category": "Betting Sites", "id": 27140}
+{"domain": "pdude.link", "url": "https://pdude.link/gavpn-review", "category": "Best VPN Sites", "id": 27808}
+{"domain": "pdude.link", "url": "https://pdude.link/calfvpn-review", "category": "Best VPN Sites", "id": 27858}
+{"domain": "pdude.link", "url": "https://pdude.link/outlinechinavpn-review", "category": "Best VPN Sites", "id": 28089}
+{"domain": "pdude.link", "url": "https://pdude.link/viewturbovpn-review", "category": "Best VPN Sites", "id": 28288}
+{"domain": "pdude.link", "url": "https://pdude.link/pantherbet-review", "category": "Betting Sites", "id": 28649}
+{"domain": "pdude.link", "url": "https://pdude.link/starfyhr-review", "category": "Betting Sites", "id": 28900}
+{"domain": "pdude.link", "url": "https://pdude.link/grand-lisboa-macau-review", "category": "Betting Sites", "id": 29279}
+{"domain": "pdude.link", "url": "https://pdude.link/bz-review", "category": "Betting Sites", "id": 29493}
+{"domain": "pdude.link", "url": "https://pdude.link/vidvana-review", "category": "Useful Software", "id": 29530}
+{"domain": "pdude.link", "url": "https://pdude.link/truepharmacy-review", "category": "Male Enhancement Pills", "id": 29532}
+{"domain": "pdude.link", "url": "https://pdude.link/jackspay-review", "category": "Betting Sites", "id": 30037}
+{"domain": "pdude.link", "url": "https://pdude.link/gotobet-review", "category": "Betting Sites", "id": 30705}
+{"domain": "pdude.link", "url": "https://pdude.link/l0tt0-review", "category": "Betting Sites", "id": 30869}
