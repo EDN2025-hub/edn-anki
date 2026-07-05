@@ -30,10 +30,10 @@ Réglages > **Temps d'écran** :
 3. Toujours dans Contenu web, section **NE JAMAIS AUTORISER**, ajouter les
    domaines de `selflock/data/screentime_denylist.txt` — au minimum :
    ```
-   twitter.com      x.com          t.co           twimg.com
-   reddit.com       redd.it        redditmedia.com
-   theporndude.com  pornhub.com    xvideos.com    xnxx.com
-   xhamster.com     onlyfans.com   chaturbate.com spankbang.com
+   https://twitter.com   https://x.com        https://t.co
+   https://reddit.com    https://redd.it      https://twimg.com
+   https://theporndude.com  https://pornhub.com  https://xvideos.com
+   https://xhamster.com  https://onlyfans.com  https://chaturbate.com  (etc.)
    ```
    (Le filtre adulte d'Apple couvre déjà l'immense majorité des sites
    pornos, y compris les nouveaux domaines — cette liste ajoute les

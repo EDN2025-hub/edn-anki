@@ -469,7 +469,9 @@ def main() -> None:
         "motherless.com", "eporner.com", "hqporner.com", "beeg.com",
         "tnaflix.com", "porntrex.com", "youjizz.com", "txxx.com",
     ] if d in set(all_domains)]
-    write_lines("screentime_denylist.txt", platform_blocked + majors)
+    # iOS exige des URL complètes (https://) dans « Ne jamais autoriser »
+    write_lines("screentime_denylist.txt",
+                [f"https://{d}" for d in platform_blocked + majors])
 
     only_tpd = sorted(d for d, c in xcheck.items() if c == 0)
     with open(os.path.join(args.out, "report.md"), "w", encoding="utf-8") as f:
