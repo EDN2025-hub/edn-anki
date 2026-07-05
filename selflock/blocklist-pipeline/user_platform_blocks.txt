@@ -1,0 +1,12 @@
+# Plateformes que l'UTILISATEUR a choisi de bloquer intégralement,
+# en plus de la blocklist porno (demande explicite : Twitter et Reddit,
+# considérés comme sources NSFW non filtrables).
+# Ces domaines sont bloqués au niveau plateforme (domaine entier + CDN).
+twitter.com
+x.com
+t.co
+twimg.com
+reddit.com
+redd.it
+redditmedia.com
+redditstatic.com

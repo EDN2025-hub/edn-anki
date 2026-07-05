@@ -1,0 +1,13 @@
+# Catégories ThePornDude qui ne sont PAS du contenu NSFW : jamais bloquées.
+# Objectif : ne bloquer QUE le NSFW (+ Twitter/Reddit par choix explicite).
+# Les entrées de ces catégories partent dans excluded_non_nsfw.txt (revue).
+#
+# Betting Sites          : casinos/paris sportifs — pas du contenu porno
+# Best VPN Sites         : utilitaires réseau
+# Male Enhancement Pills : compléments alimentaires
+# Useful Software        : logiciels génériques — contient VLC, uBlock
+#                          Origin, Dark Reader, Chrome… (vérifié le 2026-07-05)
+Betting Sites
+Best VPN Sites
+Male Enhancement Pills
+Useful Software

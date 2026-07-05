@@ -1,0 +1,56 @@
+# Jetons lexicaux explicitement adultes. Une "marque" (label de domaine sans
+# chiffres) qui contient un de ces jetons est éligible à une règle regex de
+# rotation de domaine (ex: pornhd3x -> pornhd\d*.tld quelconque).
+# La regex générée matche UNIQUEMENT le label exact de la marque (+ chiffres
+# optionnels), jamais un mot qui contiendrait le jeton par accident.
+porn
+porno
+pr0n
+xxx
+xnxx
+xvideo
+xhamster
+hentai
+sex
+fuck
+milf
+pussy
+boobs
+tits
+anal
+bdsm
+fetish
+nude
+naked
+erotic
+erotik
+camgirl
+camwhore
+jav
+javhd
+rule34
+nsfw
+escort
+hooker
+slut
+whore
+cum
+dick
+cock
+blowjob
+gangbang
+creampie
+femdom
+futanari
+shemale
+tranny
+incest
+lolicon
+ahegao
+doujin
+nhentai
+fap
+jerk
+wank
+strip
+xmovies

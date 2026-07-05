@@ -1,0 +1,99 @@
+# Spécification XcodeGen — générer le projet avec :
+#   brew install xcodegen
+#   cd selflock/ios && xcodegen generate
+# puis ouvrir SelfShield.xcodeproj dans Xcode.
+#
+# IMPORTANT avant compilation :
+#  1. Renseigner DEVELOPMENT_TEAM (votre Team ID Apple Developer).
+#  2. Adapter le bundleIdPrefix à votre compte.
+#  3. La capability "Family Controls" doit être activée pour l'App ID
+#     principal sur developer.apple.com (distribution App Store : demander
+#     l'entitlement à Apple ; en développement, cochez simplement la
+#     capability dans Signing & Capabilities).
+name: SelfShield
+options:
+  bundleIdPrefix: com.example.selfshield
+  deploymentTarget:
+    iOS: "16.4"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""            # <- votre Team ID
+    CODE_SIGN_STYLE: Automatic
+    IPHONEOS_DEPLOYMENT_TARGET: "16.4"
+    TARGETED_DEVICE_FAMILY: "1"
+
+targets:
+  SelfShield:
+    type: application
+    platform: iOS
+    sources:
+      - path: SelfShield
+    info:
+      path: SelfShield/Info.plist
+      properties:
+        CFBundleDisplayName: SelfShield
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIBackgroundModes:
+          - fetch
+          - processing
+        BGTaskSchedulerPermittedIdentifiers:
+          - com.example.selfshield.refreshBlocklist
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+    entitlements:
+      path: SelfShield/SelfShield.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - group.com.example.selfshield
+    dependencies:
+      - target: ContentBlocker
+        embed: true
+      - target: Monitor
+        embed: true
+
+  # Extension DeviceActivity : ré-affirme les restrictions chaque jour,
+  # exécutée par le SYSTÈME même si l'app est fermée/purgée de la RAM.
+  Monitor:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Monitor
+      - path: SelfShield/Managers/ShieldManager.swift
+      - path: SelfShield/Support/Constants.swift
+    info:
+      path: Monitor/Info.plist
+      properties:
+        CFBundleDisplayName: SelfShield Monitor
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity.monitor-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SelfShieldMonitor
+    entitlements:
+      path: Monitor/Monitor.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - group.com.example.selfshield
+
+  ContentBlocker:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ContentBlocker
+    info:
+      path: ContentBlocker/Info.plist
+      properties:
+        CFBundleDisplayName: SelfShield Blocker
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.Safari.content-blocker
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentBlockerRequestHandler
+    entitlements:
+      path: ContentBlocker/ContentBlocker.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.example.selfshield

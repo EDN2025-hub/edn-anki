@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Profil de SUPERVISION SelfShield — à installer via Apple Configurator sur
+  un iPhone SUPERVISÉ (voir GUIDE_SANS_COMPTE_DEV.md, option B).
+
+  Sur un appareil supervisé, ce profil est marqué NON-RETIRABLE : seul le
+  Mac superviseur peut le retirer. Les clés marquées [supervisé] sont
+  ignorées sur un appareil non supervisé.
+
+  Contenu :
+   1. Filtre de contenu web : filtre adulte Apple natif + liste noire
+      (plateformes choisies + racines majeures). Appliqué par l'OS à tous
+      les navigateurs, insensible aux VPN/DNS.
+   2. Restrictions : pas d'installation d'apps, pas de suppression d'apps,
+      pas de VPN, pas de nouveaux profils, App Store 12+, date/heure
+      automatique, pas de retour aux réglages d'usine [supervisé].
+   3. DNS filtrant DoH (défense en profondeur).
+-->
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+
+        <!-- ── 1. Filtre de contenu web (natif iOS) ─────────────────── -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.webcontent-filter</string>
+            <key>PayloadIdentifier</key>
+            <string>com.selfshield.supervision.webfilter</string>
+            <key>PayloadUUID</key>
+            <string>B7E1A2C4-0001-4A5B-9C3D-1A2B3C4D5E01</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>Filtre web SelfShield</string>
+            <key>FilterType</key>
+            <string>BuiltIn</string>
+            <key>AutoFilterEnabled</key>
+            <true/>
+            <key>DenylistURLs</key>
+            <array>
+                <string>https://twitter.com</string>
+                <string>https://x.com</string>
+                <string>https://t.co</string>
+                <string>https://twimg.com</string>
+                <string>https://reddit.com</string>
+                <string>https://redd.it</string>
+                <string>https://redditmedia.com</string>
+                <string>https://redditstatic.com</string>
+                <string>https://theporndude.com</string>
+                <string>https://pornhub.com</string>
+                <string>https://xvideos.com</string>
+                <string>https://xnxx.com</string>
+                <string>https://xhamster.com</string>
+                <string>https://redtube.com</string>
+                <string>https://youporn.com</string>
+                <string>https://spankbang.com</string>
+                <string>https://onlyfans.com</string>
+                <string>https://fansly.com</string>
+                <string>https://chaturbate.com</string>
+                <string>https://stripchat.com</string>
+                <string>https://livejasmin.com</string>
+                <string>https://bongacams.com</string>
+                <string>https://cam4.com</string>
+                <string>https://myfreecams.com</string>
+                <string>https://rule34.xxx</string>
+                <string>https://nhentai.net</string>
+                <string>https://e621.net</string>
+                <string>https://f95zone.to</string>
+                <string>https://erome.com</string>
+                <string>https://motherless.com</string>
+                <string>https://eporner.com</string>
+                <string>https://hqporner.com</string>
+                <string>https://beeg.com</string>
+                <string>https://tnaflix.com</string>
+                <string>https://porntrex.com</string>
+                <string>https://youjizz.com</string>
+                <string>https://txxx.com</string>
+                <string>https://4chan.org</string>
+            </array>
+        </dict>
+
+        <!-- ── 2. Restrictions ──────────────────────────────────────── -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.applicationaccess</string>
+            <key>PayloadIdentifier</key>
+            <string>com.selfshield.supervision.restrictions</string>
+            <key>PayloadUUID</key>
+            <string>B7E1A2C4-0002-4A5B-9C3D-1A2B3C4D5E02</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>Restrictions SelfShield</string>
+            <!-- Anti-contournement -->
+            <key>allowAppInstallation</key>
+            <false/>
+            <key>allowAppRemoval</key>
+            <false/>
+            <key>allowUIConfigurationProfileInstallation</key>
+            <false/>
+            <key>allowVPNCreation</key>
+            <false/>
+            <key>allowEraseContentAndSettings</key>
+            <false/>
+            <key>allowAccountModification</key>
+            <false/>
+            <key>forceAutomaticDateAndTime</key>
+            <true/>
+            <!-- Contenus -->
+            <key>ratingApps</key>
+            <integer>300</integer>
+            <key>allowExplicitContent</key>
+            <false/>
+            <key>ratingMovies</key>
+            <integer>400</integer>
+            <key>allowBookstoreErotica</key>
+            <false/>
+        </dict>
+
+        <!-- ── 3. DNS filtrant (défense en profondeur) ─────────────── -->
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadIdentifier</key>
+            <string>com.selfshield.supervision.dns</string>
+            <key>PayloadUUID</key>
+            <string>B7E1A2C4-0003-4A5B-9C3D-1A2B3C4D5E03</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>DNS filtrant SelfShield</string>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://family.cloudflare-dns.com/dns-query</string>
+                <key>ServerAddresses</key>
+                <array>
+                    <string>1.1.1.3</string>
+                    <string>1.0.0.3</string>
+                    <string>2606:4700:4700::1113</string>
+                    <string>2606:4700:4700::1003</string>
+                </array>
+            </dict>
+            <key>ProhibitDisablement</key>
+            <true/>
+        </dict>
+
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>SelfShield — Supervision (filtre + restrictions + DNS)</string>
+    <key>PayloadDescription</key>
+    <string>Blocage permanent des contenus pornographiques/NSFW (dont Twitter/X et Reddit). Retirable uniquement par le Mac superviseur.</string>
+    <key>PayloadIdentifier</key>
+    <string>com.selfshield.supervision</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>B7E1A2C4-0000-4A5B-9C3D-1A2B3C4D5E00</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+</dict>
+</plist>

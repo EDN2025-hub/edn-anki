@@ -1,0 +1,517 @@
+#!/usr/bin/env python3
+"""
+Construction de la blocklist finale à partir du dataset ThePornDude,
+avec garde-fous anti-faux-positifs.
+
+Étapes :
+  1. Normalisation : URL officielle -> hôte -> domaine enregistrable (eTLD+1,
+     avec table des suffixes à deux niveaux les plus courants).
+  2. Résolution des redirecteurs d'affiliation de ThePornDude (pdude.link,
+     tpd.deals) vers le domaine de destination FINAL (option --resolve,
+     nécessite le réseau ; résultats mis en cache).
+  3. Classification avec gardes :
+       - domaine ∈ platforms.txt  -> jamais auto-bloqué ; bloqué seulement
+         s'il figure dans user_platform_blocks.txt (choix utilisateur :
+         Twitter, Reddit…). Contenu hébergé sur plateforme (sous-domaine
+         type xyz.blogspot.com) -> blocage du sous-domaine exact uniquement.
+       - domaine ∈ allowlist.txt  -> QUARANTAINE (jamais bloqué), revue
+         manuelle dans quarantine_review.txt.
+       - review "dead" pointant vers theporndude.com -> ignorée.
+       - domaine mort mais réel -> conservé (un ancien domaine porno
+         redirige presque toujours vers du porno), listé aussi à part.
+  4. Règles de rotation de domaines : pour les marques qui changent
+     régulièrement de nom de domaine, génération d'une regex qui matche le
+     label EXACT de la marque + suffixe numérique optionnel + n'importe quel
+     TLD (ex: ^https?://([^/:]*\\.)?xmoviesforyou[0-9]*\\.[a-z]{2,}).
+     Garde-fous : marque >= 5 caractères, ET (contient un jeton adulte
+     explicite OU observée avec >= 2 variantes de TLD/numéro dans la base),
+     et absente d'une liste de mots génériques.
+  5. Rapport de confiance : croisement facultatif avec des blocklists
+     publiques indépendantes (--crosscheck) pour signaler les domaines que
+     seul ThePornDude connaît (information, pas exclusion).
+
+Sorties (dans --out) :
+  blocklist_domains.txt   liste finale (1 domaine/ligne, commentaires = catégorie)
+  platform_blocks.txt     plateformes bloquées par choix utilisateur
+  platform_subdomains.txt sous-domaines de plateformes à bloquer individuellement
+  quarantine_review.txt   entrées écartées pour revue manuelle
+  dead_domains.txt        domaines de sites morts (inclus, tagués)
+  rotation_rules.json     regex de rotation (marque -> règle)
+  blockerList.json        règles Safari Content Blocker prêtes à l'emploi
+  report.md               statistiques et vérifications
+"""
+
+import argparse
+import json
+import os
+import re
+import sys
+import time
+import urllib.parse
+import urllib.request
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+
+# Redirecteurs d'affiliation appartenant à ThePornDude
+TPD_REDIRECTORS = {"pdude.link", "tpd.deals", "porndude.link"}
+TPD_OWN = {"theporndude.com", "porndude.link", "pdude.link", "tpd.deals",
+           "porndudecasting.com", "porndudedeutsch.com", "porndudeshop.com"}
+
+# Marques de plateformes multi-TLD (petites annonces/hébergement par pays) :
+# quel que soit le TLD (locanto.com.br, locanto.cl…), on ne bloque jamais le
+# domaine entier — uniquement les sous-domaines explicitement adultes.
+PLATFORM_BRANDS = {"locanto", "vivastreet", "livedoor", "olx", "craigslist",
+                   "gumtree", "kijiji", "leboncoin", "marktplaats", "subito",
+                   "milanuncios", "blocket", "finn", "avito"}
+
+# Suffixes publics à deux niveaux les plus courants (sous-ensemble PSL)
+TWO_LEVEL_SUFFIXES = {
+    "co.uk", "org.uk", "me.uk", "ac.uk", "gov.uk",
+    "com.au", "net.au", "org.au", "com.br", "net.br", "org.br",
+    "co.jp", "ne.jp", "or.jp", "co.kr", "or.kr", "com.mx", "com.ar",
+    "com.co", "com.pe", "com.ve", "co.in", "net.in", "org.in", "co.za",
+    "com.tr", "com.tw", "com.hk", "com.sg", "com.my", "com.ph", "com.vn",
+    "co.th", "in.th", "com.cn", "net.cn", "org.cn", "com.ua", "com.pl",
+    "com.ru", "com.de", "co.nz", "org.nz", "com.es", "com.pt", "com.gr",
+    "co.il", "org.il", "com.eg", "com.ng", "co.ke", "com.sa", "com.pk",
+    "com.bd", "eu.org",
+}
+
+GENERIC_BRAND_WORDS = {
+    "video", "videos", "movie", "movies", "photo", "photos", "image",
+    "images", "media", "stream", "streaming", "online", "world", "planet",
+    "house", "store", "games", "gaming", "forum", "forums", "board",
+    "chat", "live", "webcam", "camera", "model", "models", "girls",
+    "boys", "teens", "asian", "latina", "ebony", "amateur", "premium",
+    "gratis", "free", "best", "top", "new", "hot",
+    # mots à usage légitime massif (audit 2026-07-05) : jamais de regex
+    "annonce", "annonces", "manga", "mangas", "comics", "comix", "manhwa",
+    "seznamka", "xstream", "dating", "singles", "flirt", "rencontre",
+    "baddies", "stories", "leaks", "chan", "booru",
+}
+
+
+def load_list(path: str) -> set[str]:
+    out = set()
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip().lower()
+            if line and not line.startswith("#"):
+                out.add(line)
+    return out
+
+
+def host_of(url: str) -> str:
+    try:
+        h = urllib.parse.urlsplit(url).hostname or ""
+    except Exception:
+        return ""
+    h = h.lower().strip(".")
+    return h[4:] if h.startswith("www.") else h
+
+
+def registrable(host: str) -> str:
+    """eTLD+1 approché : gère les suffixes à deux niveaux courants."""
+    parts = host.split(".")
+    if len(parts) <= 2:
+        return host
+    if ".".join(parts[-2:]) in TWO_LEVEL_SUFFIXES:
+        return ".".join(parts[-3:])
+    return ".".join(parts[-2:])
+
+
+def resolve_final_host(url: str, cache: dict, max_hops: int = 8) -> str:
+    """Suit la chaîne de redirections et renvoie l'hôte FINAL."""
+    if url in cache:
+        return cache[url]
+    cur = url
+    final_host = host_of(url)
+    try:
+        for _ in range(max_hops):
+            req = urllib.request.Request(cur, headers={"User-Agent": UA},
+                                         method="GET")
+            # pas de suivi automatique : on veut chaque hop
+            opener = urllib.request.build_opener(NoRedirect())
+            try:
+                resp = opener.open(req, timeout=20)
+                final_host = host_of(cur)
+                resp.close()
+                break
+            except urllib.error.HTTPError as e:
+                if e.code in (301, 302, 303, 307, 308):
+                    loc = e.headers.get("Location")
+                    if not loc:
+                        break
+                    cur = urllib.parse.urljoin(cur, loc)
+                    final_host = host_of(cur)
+                    continue
+                final_host = host_of(cur)
+                break
+    except Exception:
+        pass
+    cache[url] = final_host
+    return final_host
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        return None
+
+
+def build_rotation_rules(domains_with_meta: dict[str, dict],
+                         adult_tokens: set[str]) -> dict[str, str]:
+    """Regex de rotation pour marques instables ou explicitement adultes.
+
+    Le motif remplace chaque suite de chiffres du label par [0-9]* et en
+    tolère une en fin de label : pornhd3x -> pornhd[0-9]*x[0-9]*, ce qui
+    matche pornhd3x, pornhd4x, pornhdx… sur n'importe quel TLD, mais
+    JAMAIS un autre mot (le label est ancré de bout en bout).
+    """
+    groups: dict[str, set[str]] = {}   # marque sans chiffres -> labels vus
+    for dom in domains_with_meta:
+        label = dom.split(".")[0]
+        stripped = re.sub(r"[0-9]+", "", label)
+        if len(stripped) < 5:
+            continue
+        groups.setdefault(stripped, set()).add(label)
+
+    rules: dict[str, str] = {}
+    for stripped, labels in groups.items():
+        if stripped in GENERIC_BRAND_WORDS:
+            continue
+        has_token = any(t in stripped for t in adult_tokens)
+        multi_variant = len(labels) >= 2 or any(
+            len([d for d in domains_with_meta
+                 if d.split(".")[0] == lb]) >= 2 for lb in labels)
+        if not (has_token or multi_variant):
+            continue
+        for label in labels:
+            if has_token:
+                # Marque explicitement adulte : généralisation complète.
+                # Chaque suite de chiffres devient [0-9]+ (JAMAIS [0-9]*,
+                # sinon manga18 -> manga[0-9]* matcherait manga.com),
+                # + un suffixe numérique toléré si le label n'en a pas.
+                parts = re.split(r"[0-9]+", label)
+                core = "[0-9]+".join(re.escape(p) for p in parts)
+                if not core.endswith("[0-9]+"):
+                    core += "[0-9]*"
+            else:
+                # Marque sans jeton adulte (multi-variante seulement) :
+                # prudence maximale — label EXACT, seule la rotation de
+                # TLD est généralisée.
+                core = re.escape(label)
+            rules[label] = (
+                rf"^https?://([^/:]*\.)?{core}\.[a-z]{{2,24}}(:[0-9]+)?([/?]|$)"
+            )
+    return rules
+
+
+def safari_rules(domains: list[str], subdomain_hosts: list[str],
+                 rotation: dict[str, str]) -> list[dict]:
+    """Règles Safari Content Blocker.
+    - domaines entiers : if-domain (rapide, exact, *.domaine inclus)
+    - sous-domaines de plateformes : if-domain sur l'hôte exact
+    - rotation : url-filter regex
+    """
+    rules: list[dict] = []
+    chunk = 250
+    for i in range(0, len(domains), chunk):
+        batch = domains[i:i + chunk]
+        rules.append({
+            "trigger": {"url-filter": ".*",
+                        "if-domain": [f"*{d}" for d in batch]},
+            "action": {"type": "block"},
+        })
+    for i in range(0, len(subdomain_hosts), chunk):
+        batch = subdomain_hosts[i:i + chunk]
+        rules.append({
+            "trigger": {"url-filter": ".*",
+                        "if-domain": [f"*{h}" for h in batch]},
+            "action": {"type": "block"},
+        })
+    for brand in sorted(rotation):
+        rules.append({
+            "trigger": {"url-filter": rotation[brand],
+                        "url-filter-is-case-sensitive": False},
+            "action": {"type": "block"},
+        })
+    return rules
+
+
+# Blocklists porno publiques, maintenues indépendamment les unes des autres.
+EXTERNAL_SOURCES = [
+    "https://raw.githubusercontent.com/blocklistproject/Lists/master/porn.txt",
+    "https://raw.githubusercontent.com/Sinfonietta/hostfiles/master/pornography-hosts",
+    "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/porn-only/hosts",
+]
+
+# Hôtes locaux/parasites présents dans les fichiers hosts publics.
+_HOSTS_NOISE = {"localhost", "localhost.localdomain", "local", "broadcasthost",
+                "ip6-localhost", "ip6-loopback", "ip6-localnet",
+                "ip6-mcastprefix", "ip6-allnodes", "ip6-allrouters",
+                "ip6-allhosts", "0.0.0.0"}
+
+
+def fetch_external_lists() -> list[set[str]]:
+    """Télécharge chaque liste publique -> ensembles d'hôtes complets."""
+    out: list[set[str]] = []
+    for src in EXTERNAL_SOURCES:
+        seen: set[str] = set()
+        try:
+            req = urllib.request.Request(src, headers={"User-Agent": UA})
+            body = urllib.request.urlopen(req, timeout=120).read()
+        except Exception as e:
+            print(f"  ! liste externe indisponible: {src} ({e})", file=sys.stderr)
+            out.append(seen)
+            continue
+        for line in body.decode("utf-8", "replace").splitlines():
+            line = line.split("#", 1)[0].strip().lower()
+            if not line:
+                continue
+            host = line.split()[-1]
+            host = host[4:] if host.startswith("www.") else host
+            if host and host not in _HOSTS_NOISE and "." in host:
+                seen.add(host)
+        out.append(seen)
+        print(f"  liste externe: {len(seen)} hôtes ({src.split('/')[-1]})")
+    return out
+
+
+def crosscheck(domains: set[str], ext: list[set[str]]) -> dict[str, int]:
+    """Nb de listes publiques confirmant chaque domaine (confiance)."""
+    regs = [{registrable(h) for h in s} for s in ext]
+    return {d: sum(1 for r in regs if d in r) for d in domains}
+
+
+def external_consensus(ext: list[set[str]], allow: set[str],
+                       platforms: set[str]) -> set[str]:
+    """Domaines présents dans >= 2 listes publiques indépendantes
+    (consensus anti-faux-positifs), hors allowlist et plateformes."""
+    from collections import Counter
+    counts: Counter = Counter()
+    for s in ext:
+        counts.update({registrable(h) for h in s})
+    return {d for d, c in counts.items()
+            if c >= 2 and d not in allow and d not in platforms
+            and registrable(d) == d and "." in d}
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dataset", default="data/theporndude_sites.json")
+    ap.add_argument("--out", default="data")
+    ap.add_argument("--resolve", action="store_true",
+                    help="résoudre les redirecteurs pdude.link (réseau)")
+    ap.add_argument("--resolve-cache", default=".cache/redirects.json")
+    ap.add_argument("--crosscheck", action="store_true",
+                    help="croiser avec des blocklists publiques (réseau)")
+    ap.add_argument("--merge-external", action="store_true",
+                    help="fusionner les domaines confirmés par >= 2 listes "
+                         "publiques indépendantes (couverture maximale)")
+    args = ap.parse_args()
+
+    dataset = json.load(open(args.dataset, encoding="utf-8"))
+    sites = dataset["sites"]
+    allow = load_list(os.path.join(HERE, "allowlist.txt"))
+    platforms = load_list(os.path.join(HERE, "platforms.txt"))
+    user_platform_blocks = load_list(os.path.join(HERE, "user_platform_blocks.txt"))
+    adult_tokens = load_list(os.path.join(HERE, "brand_tokens.txt"))
+    excluded_categories = load_list(os.path.join(HERE, "excluded_categories.txt"))
+
+    redirect_cache: dict = {}
+    if os.path.exists(args.resolve_cache):
+        redirect_cache = json.load(open(args.resolve_cache))
+
+    blocked: dict[str, dict] = {}          # registrable -> meta
+    platform_subdomains: dict[str, dict] = {}
+    quarantine: list[dict] = []
+    excluded_non_nsfw: list[dict] = []
+    dead: set[str] = set()
+    platform_hits: dict[str, int] = {}
+    unresolved_redirectors = 0
+
+    for s in sites:
+        url = s["official_url"]
+
+        # Catégories non-NSFW (VPN, paris, logiciels…) : jamais bloquées.
+        # Testé AVANT tout le reste : même pas de résolution de redirecteur.
+        if s.get("category", "").strip().lower() in excluded_categories:
+            excluded_non_nsfw.append({
+                "domain": host_of(url), "url": url,
+                "category": s.get("category", ""), "id": s["id"],
+            })
+            continue
+        host = host_of(url)
+        if not host:
+            continue
+        reg = registrable(host)
+
+        # Redirecteur d'affiliation ThePornDude -> résoudre la destination
+        if reg in TPD_REDIRECTORS:
+            if args.resolve:
+                final = resolve_final_host(url, redirect_cache)
+                if final and registrable(final) not in TPD_REDIRECTORS:
+                    host = final
+                    reg = registrable(final)
+                else:
+                    unresolved_redirectors += 1
+                    continue
+            else:
+                unresolved_redirectors += 1
+                continue
+
+        # Pages internes ThePornDude (sites morts, hall of fame…)
+        if reg in TPD_OWN:
+            continue
+
+        meta = {"category": s.get("category", ""), "id": s["id"],
+                "dead": s.get("dead", False)}
+
+        if reg in allow:
+            quarantine.append({"domain": reg, "host": host, **meta,
+                               "reason": "allowlist"})
+            continue
+
+        if reg in platforms or reg.split(".")[0] in PLATFORM_BRANDS:
+            platform_hits[reg] = platform_hits.get(reg, 0) + 1
+            # contenu hébergé (xyz.blogspot.com) -> sous-domaine exact
+            if host != reg and host.count(".") > reg.count("."):
+                platform_subdomains[host] = meta
+            continue
+
+        if meta["dead"]:
+            dead.add(reg)
+        blocked.setdefault(reg, meta)
+
+    # sauvegarde cache redirections
+    os.makedirs(os.path.dirname(args.resolve_cache) or ".", exist_ok=True)
+    json.dump(redirect_cache, open(args.resolve_cache, "w"))
+
+    # garde finale : jamais d'intersection avec allowlist/platforms
+    assert not (set(blocked) & allow), "faux positif: allowlist dans blocklist"
+    assert not (set(blocked) & platforms), "plateforme dans blocklist"
+
+    rotation = build_rotation_rules(blocked, adult_tokens)
+
+    platform_blocked = sorted(user_platform_blocks)
+
+    ext_lists: list[set[str]] = []
+    if args.crosscheck or args.merge_external:
+        ext_lists = fetch_external_lists()
+
+    merged_external: set[str] = set()
+    if args.merge_external:
+        merged_external = external_consensus(ext_lists, allow, platforms)
+        merged_external -= set(blocked)
+        # jamais un domaine que ThePornDude lui-même classe non-NSFW
+        # (ex: utorrent.com listé par erreur dans des listes publiques)
+        excluded_regs = {registrable(e["domain"]) for e in excluded_non_nsfw
+                         if e.get("domain")}
+        merged_external -= excluded_regs
+        # jamais une marque de plateforme multi-TLD (locanto.cl…)
+        merged_external = {d for d in merged_external
+                           if d.split(".")[0] not in PLATFORM_BRANDS}
+        # garde : mêmes assertions que la liste principale
+        assert not (merged_external & allow)
+        assert not (merged_external & platforms)
+
+    all_domains = sorted(set(blocked) | set(platform_blocked)
+                         | merged_external | {"theporndude.com"})
+
+    xcheck = crosscheck(set(blocked), ext_lists) if args.crosscheck else {}
+
+    os.makedirs(args.out, exist_ok=True)
+
+    def write_lines(name: str, lines: list[str]) -> None:
+        with open(os.path.join(args.out, name), "w", encoding="utf-8") as f:
+            f.write("\n".join(lines) + "\n")
+
+    write_lines("blocklist_domains.txt",
+                [f"{d}  # {blocked[d]['category']}" if d in blocked else d
+                 for d in all_domains])
+    write_lines("platform_blocks.txt", platform_blocked)
+    write_lines("platform_subdomains.txt", sorted(platform_subdomains))
+    write_lines("dead_domains.txt", sorted(dead))
+    write_lines("quarantine_review.txt",
+                [json.dumps(q, ensure_ascii=False) for q in quarantine] or
+                ["# vide : aucune entrée suspecte"])
+    write_lines("excluded_non_nsfw.txt",
+                [json.dumps(e, ensure_ascii=False) for e in excluded_non_nsfw] or
+                ["# vide"])
+    json.dump(rotation, open(os.path.join(args.out, "rotation_rules.json"), "w"),
+              indent=1)
+
+    rules = safari_rules(all_domains, sorted(platform_subdomains), rotation)
+    json.dump(rules, open(os.path.join(args.out, "blockerList.json"), "w"),
+              separators=(",", ":"))
+
+    # Fichier hosts pour macOS/Windows/Linux (0 processus, 0 RAM dédiée) :
+    # apex + www ; les autres sous-domaines sont couverts par la couche DNS.
+    with open(os.path.join(args.out, "hosts_blocklist.txt"), "w",
+              encoding="utf-8") as f:
+        f.write("# SelfShield — fichier hosts généré par build_blocklist.py\n")
+        f.write("# Usage : voir selflock/desktop/\n")
+        for d in all_domains:
+            f.write(f"0.0.0.0 {d}\n0.0.0.0 www.{d}\n")
+        for h in sorted(platform_subdomains):
+            f.write(f"0.0.0.0 {h}\n")
+
+    # Liste courte pour saisie MANUELLE dans Temps d'écran (iPhone sans app) :
+    # plateformes choisies + racines majeures effectivement présentes.
+    majors = [d for d in [
+        "theporndude.com", "pornhub.com", "xvideos.com", "xnxx.com",
+        "xhamster.com", "redtube.com", "youporn.com", "spankbang.com",
+        "onlyfans.com", "fansly.com", "chaturbate.com", "stripchat.com",
+        "livejasmin.com", "bongacams.com", "cam4.com", "myfreecams.com",
+        "rule34.xxx", "nhentai.net", "e621.net", "f95zone.to", "erome.com",
+        "motherless.com", "eporner.com", "hqporner.com", "beeg.com",
+        "tnaflix.com", "porntrex.com", "youjizz.com", "txxx.com",
+    ] if d in set(all_domains)]
+    # iOS exige des URL complètes (https://) dans « Ne jamais autoriser »
+    write_lines("screentime_denylist.txt",
+                [f"https://{d}" for d in platform_blocked + majors])
+
+    only_tpd = sorted(d for d, c in xcheck.items() if c == 0)
+    with open(os.path.join(args.out, "report.md"), "w", encoding="utf-8") as f:
+        f.write("# Rapport de construction de la blocklist\n\n")
+        f.write(f"- Sites dans le dataset ThePornDude : **{len(sites)}**\n")
+        f.write(f"- Domaines bloqués (sites) : **{len(blocked)}**\n")
+        f.write(f"- Plateformes bloquées (choix utilisateur) : "
+                f"**{len(platform_blocked)}** ({', '.join(platform_blocked)})\n")
+        f.write(f"- Sous-domaines de plateformes bloqués : "
+                f"**{len(platform_subdomains)}**\n")
+        f.write(f"- Entrées en quarantaine (allowlist) : **{len(quarantine)}**\n")
+        f.write(f"- Entrées exclues car non-NSFW (VPN, paris, logiciels…) : "
+                f"**{len(excluded_non_nsfw)}**\n")
+        f.write(f"- Domaines de sites morts (inclus, tagués) : **{len(dead)}**\n")
+        f.write(f"- Regex de rotation de domaine : **{len(rotation)}**\n")
+        if args.merge_external:
+            f.write(f"- Domaines externes fusionnés (consensus >= 2 listes "
+                    f"publiques indépendantes) : **{len(merged_external)}**\n")
+        f.write(f"- Redirecteurs d'affiliation non résolus (ignorés) : "
+                f"**{unresolved_redirectors}**"
+                f"{'' if args.resolve else ' (relancer avec --resolve)'}\n")
+        f.write(f"- Règles Safari générées : **{len(rules)}**\n\n")
+        f.write("## Contenus de plateformes détectés (non bloqués "
+                "automatiquement)\n\n")
+        for p, n in sorted(platform_hits.items(), key=lambda x: -x[1]):
+            mark = "BLOQUÉE (choix utilisateur)" if p in user_platform_blocks \
+                else "non bloquée (plateforme généraliste)"
+            f.write(f"- {p} : {n} contenus référencés — {mark}\n")
+        if args.crosscheck:
+            f.write(f"\n## Croisement avec des listes publiques\n\n")
+            f.write(f"Domaines confirmés par au moins une liste externe : "
+                    f"**{sum(1 for c in xcheck.values() if c > 0)}** / {len(xcheck)}\n\n")
+            f.write(f"Domaines connus uniquement de ThePornDude "
+                    f"({len(only_tpd)}) — source humaine curée, inclus :\n\n")
+            for d in only_tpd[:400]:
+                f.write(f"- {d} ({blocked[d]['category']})\n")
+
+    print(f"{len(blocked)} domaines bloqués, {len(rotation)} regex de rotation, "
+          f"{len(quarantine)} en quarantaine -> {args.out}/")
+
+
+if __name__ == "__main__":
+    main()
