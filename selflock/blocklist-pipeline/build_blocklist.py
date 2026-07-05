@@ -79,6 +79,10 @@ GENERIC_BRAND_WORDS = {
     "chat", "live", "webcam", "camera", "model", "models", "girls",
     "boys", "teens", "asian", "latina", "ebony", "amateur", "premium",
     "gratis", "free", "best", "top", "new", "hot",
+    # mots à usage légitime massif (audit 2026-07-05) : jamais de regex
+    "annonce", "annonces", "manga", "mangas", "comics", "comix", "manhwa",
+    "seznamka", "xstream", "dating", "singles", "flirt", "rencontre",
+    "baddies", "stories", "leaks", "chan", "booru",
 }
 
 
@@ -177,11 +181,20 @@ def build_rotation_rules(domains_with_meta: dict[str, dict],
         if not (has_token or multi_variant):
             continue
         for label in labels:
-            # chaque suite de chiffres devient [0-9]*, + une tolérée en fin
-            parts = re.split(r"[0-9]+", label)
-            core = "[0-9]*".join(re.escape(p) for p in parts)
-            if not core.endswith("[0-9]*"):
-                core += "[0-9]*"
+            if has_token:
+                # Marque explicitement adulte : généralisation complète.
+                # Chaque suite de chiffres devient [0-9]+ (JAMAIS [0-9]*,
+                # sinon manga18 -> manga[0-9]* matcherait manga.com),
+                # + un suffixe numérique toléré si le label n'en a pas.
+                parts = re.split(r"[0-9]+", label)
+                core = "[0-9]+".join(re.escape(p) for p in parts)
+                if not core.endswith("[0-9]+"):
+                    core += "[0-9]*"
+            else:
+                # Marque sans jeton adulte (multi-variante seulement) :
+                # prudence maximale — label EXACT, seule la rotation de
+                # TLD est généralisée.
+                core = re.escape(label)
             rules[label] = (
                 rf"^https?://([^/:]*\.)?{core}\.[a-z]{{2,24}}(:[0-9]+)?([/?]|$)"
             )
@@ -298,6 +311,7 @@ def main() -> None:
     platforms = load_list(os.path.join(HERE, "platforms.txt"))
     user_platform_blocks = load_list(os.path.join(HERE, "user_platform_blocks.txt"))
     adult_tokens = load_list(os.path.join(HERE, "brand_tokens.txt"))
+    excluded_categories = load_list(os.path.join(HERE, "excluded_categories.txt"))
 
     redirect_cache: dict = {}
     if os.path.exists(args.resolve_cache):
@@ -306,12 +320,22 @@ def main() -> None:
     blocked: dict[str, dict] = {}          # registrable -> meta
     platform_subdomains: dict[str, dict] = {}
     quarantine: list[dict] = []
+    excluded_non_nsfw: list[dict] = []
     dead: set[str] = set()
     platform_hits: dict[str, int] = {}
     unresolved_redirectors = 0
 
     for s in sites:
         url = s["official_url"]
+
+        # Catégories non-NSFW (VPN, paris, logiciels…) : jamais bloquées.
+        # Testé AVANT tout le reste : même pas de résolution de redirecteur.
+        if s.get("category", "").strip().lower() in excluded_categories:
+            excluded_non_nsfw.append({
+                "domain": host_of(url), "url": url,
+                "category": s.get("category", ""), "id": s["id"],
+            })
+            continue
         host = host_of(url)
         if not host:
             continue
@@ -398,6 +422,9 @@ def main() -> None:
     write_lines("quarantine_review.txt",
                 [json.dumps(q, ensure_ascii=False) for q in quarantine] or
                 ["# vide : aucune entrée suspecte"])
+    write_lines("excluded_non_nsfw.txt",
+                [json.dumps(e, ensure_ascii=False) for e in excluded_non_nsfw] or
+                ["# vide"])
     json.dump(rotation, open(os.path.join(args.out, "rotation_rules.json"), "w"),
               indent=1)
 
@@ -439,6 +466,8 @@ def main() -> None:
         f.write(f"- Sous-domaines de plateformes bloqués : "
                 f"**{len(platform_subdomains)}**\n")
         f.write(f"- Entrées en quarantaine (allowlist) : **{len(quarantine)}**\n")
+        f.write(f"- Entrées exclues car non-NSFW (VPN, paris, logiciels…) : "
+                f"**{len(excluded_non_nsfw)}**\n")
         f.write(f"- Domaines de sites morts (inclus, tagués) : **{len(dead)}**\n")
         f.write(f"- Regex de rotation de domaine : **{len(rotation)}**\n")
         if args.merge_external:

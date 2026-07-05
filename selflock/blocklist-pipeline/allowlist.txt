@@ -118,7 +118,6 @@ me.com
 protonmail.com
 proton.me
 orange.fr
-free.fr
 sfr.fr
 bouyguestelecom.fr
 ovh.com
@@ -159,3 +158,19 @@ strava.com
 komoot.com
 garmin.com
 fitbit.com
+# Rencontre mainstream (apps grand public, pas du NSFW)
+tinder.com
+badoo.com
+bumble.com
+meetic.fr
+meetic.com
+match.com
+okcupid.com
+pof.com
+happn.com
+hinge.co
+grindr.com
+lovoo.com
+elitesingles.com
+parship.fr
+happypancake.se

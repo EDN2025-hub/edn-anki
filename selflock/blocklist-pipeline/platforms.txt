@@ -113,3 +113,20 @@ canalblog.com
 skyrock.com
 
 
+# FAI / portails majeurs avec hébergement ou chats : blocage au sous-domaine
+free.fr
+interia.pl
+terra.com.br
+uol.com.br
+onet.pl
+wp.pl
+libero.it
+seznam.cz
+rambler.ru
+naver.com
+daum.net
+# Plateformes généralistes détectées par l'audit rotation
+livedoor.jp
+livedoor.com
+locanto.com
+vivastreet.com

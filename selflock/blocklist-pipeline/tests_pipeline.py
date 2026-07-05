@@ -53,6 +53,29 @@ check("marque adulte incluse (famille pornhd)",
       any("pornhd" in k for k in rot))
 check("marque adulte incluse (xmoviesforyou)", "xmoviesforyou" in rot)
 
+# Bug attrapé le 2026-07-05 : manga18 générait manga[0-9]* qui matchait
+# manga.com. Double protection désormais :
+#  1. les chiffres deviennent [0-9]+ (au moins un chiffre requis) ;
+#  2. les marques génériques (manga, comics, annonce…) n'ont AUCUNE regex.
+rot2 = build_rotation_rules({"manga18.club": fake_meta,
+                             "javhd18.com": fake_meta}, adult_tokens)
+check("générique: manga18 n'émet aucune regex (manga.com intouchable)",
+      not any("manga" in k for k in rot2)
+      and not any(re.search(rx, "https://manga.com/", re.I)
+                  for rx in rot2.values()))
+check("digits: javhd18 matche javhd19.com",
+      any(re.search(rx, "https://javhd19.com/", re.I) for rx in rot2.values()))
+check("digits: javhd18 ne matche PAS javhd.com sans chiffre",
+      not any(re.search(rx, "https://javhd.com/", re.I) for rx in rot2.values()))
+
+# Marque sans jeton adulte : rotation de TLD uniquement, label exact
+rot3 = build_rotation_rules({"aagmaal.com": fake_meta, "aagmaal.dev": fake_meta},
+                            adult_tokens)
+check("sans jeton: TLD rotation (aagmaal.dev -> aagmaal.beauty)",
+      any(re.search(rx, "https://aagmaal.beauty/", re.I) for rx in rot3.values()))
+check("sans jeton: pas de généralisation de chiffres",
+      not any(re.search(rx, "https://aagmaal2.com/", re.I) for rx in rot3.values()))
+
 MAINSTREAM_CORPUS = [
     # pièges lexicaux réels : contiennent cum/sex/dick/anal/strip/porn…
     "https://documentcloud.org/", "https://www.cummins.com/",
@@ -117,6 +140,12 @@ check("twitter et reddit bien dans les blocs utilisateur",
 check("aucun mot générique dans les jetons adultes",
       not (adult_tokens & GENERIC_BRAND_WORDS))
 
+# ── Exclusion des catégories non-NSFW ────────────────────────────────────
+excl = load_list(os.path.join(HERE, "excluded_categories.txt"))
+check("catégories non-NSFW déclarées (VPN, paris, logiciels)",
+      {"betting sites", "best vpn sites", "useful software",
+       "male enhancement pills"} <= excl)
+
 # ── Données finales si présentes (exécuté après build) ───────────────────
 data_dir = os.path.join(os.path.dirname(HERE), "data")
 bl_path = os.path.join(data_dir, "blocklist_domains.txt")
@@ -125,6 +154,17 @@ if os.path.exists(bl_path):
     blocked.discard("")
     check("données finales: allowlist ∩ blocklist = ∅", not (blocked & allow_f),
           str((blocked & allow_f)))
+    # domaines des catégories non-NSFW connues : jamais bloqués
+    NON_NSFW_KNOWN = {"videolan.org", "ublockorigin.com", "darkreader.org",
+                      "jdownloader.org", "utorrent.com", "nordvpn.com",
+                      "downloadhelper.net",
+                      # rencontre mainstream (listée par TPD mais pas NSFW)
+                      "tinder.com", "badoo.com", "bumble.com", "meetic.fr",
+                      # portails/FAI dont seuls des sous-domaines sont adultes
+                      "interia.pl", "terra.com.br", "free.fr",
+                      "livedoor.jp", "locanto.com"}
+    check("données finales: logiciels/VPN/dating/portails non bloqués",
+          not (blocked & NON_NSFW_KNOWN), str(blocked & NON_NSFW_KNOWN))
     inter = blocked & plat_f
     check("données finales: plateformes ∩ blocklist = blocs utilisateur seuls",
           inter <= user_f, str(inter - user_f))
