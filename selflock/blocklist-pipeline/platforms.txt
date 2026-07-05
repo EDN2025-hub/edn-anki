@@ -1,0 +1,60 @@
+# Plateformes généralistes : ne JAMAIS les ajouter automatiquement à la
+# blocklist porno, même si ThePornDude référence du contenu qui y est hébergé
+# (subreddits, comptes Twitter, chaînes Telegram, blogs…).
+# Elles ne sont bloquées QUE si elles figurent explicitement dans
+# user_platform_blocks.txt (décision de l'utilisateur, ex: Twitter/Reddit).
+# Format : un domaine enregistrable par ligne.
+reddit.com
+redd.it
+redditmedia.com
+redditstatic.com
+twitter.com
+x.com
+t.co
+twimg.com
+discord.com
+discord.gg
+discordapp.com
+telegram.org
+telegram.me
+t.me
+tumblr.com
+imgur.com
+patreon.com
+blogspot.com
+wordpress.com
+medium.com
+fandom.com
+wikipedia.org
+wikimedia.org
+linktr.ee
+youtube.com
+youtu.be
+google.com
+bit.ly
+tinyurl.com
+goo.gl
+facebook.com
+instagram.com
+tiktok.com
+snapchat.com
+pinterest.com
+vk.com
+weibo.com
+twitch.tv
+kick.com
+dailymotion.com
+vimeo.com
+archive.org
+github.com
+gitlab.com
+amazon.com
+ebay.com
+etsy.com
+aliexpress.com
+apple.com
+microsoft.com
+play.google.com
+mega.nz
+drive.google.com
+dropbox.com
