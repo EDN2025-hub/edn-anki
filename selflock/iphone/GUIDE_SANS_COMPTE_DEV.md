@@ -82,17 +82,54 @@ côté serveur — y compris pour les apps hors navigateur.
 
 ## Option B — le maximum absolu : supervision (gratuit, Mac requis 1 fois)
 
-Pour un blocage de niveau MDM (celui des entreprises), **Apple
-Configurator** (app gratuite d'Apple sur le Mac App Store) permet de
-« superviser » l'iPhone :
+La « supervision » est le mode entreprise/école d'iOS : le seul où les
+restrictions sont réellement inviolables. L'outil, **Apple Configurator**,
+est gratuit (Mac App Store). Un profil prêt à l'emploi est fourni :
+`supervision/SelfShield-Supervision.mobileconfig`.
 
-1. ⚠️ La mise sous supervision **efface l'iPhone** (sauvegarder avant).
-2. Apple Configurator > superviser l'appareil, puis installer un profil
-   avec : filtre de contenu web (liste noire complète `blockerList`
-   convertie), interdiction des VPN, interdiction d'installer des profils
-   ou des apps, **profils impossibles à retirer**.
-3. Résultat : contournement impossible sans effacer l'appareil via le Mac
-   superviseur.
+### Ce que la supervision débloque (impossible autrement)
+
+| Pouvoir | Effet |
+|---|---|
+| Profil **non-retirable** | seul le Mac superviseur peut le retirer — aucun code sur l'iPhone ne le permet |
+| Filtre web natif + liste noire imposée | appliqué par l'OS à tous les navigateurs, non désactivable |
+| `allowVPNCreation = false` | le vecteur VPN disparaît totalement |
+| `allowAppInstallation` / `allowUIConfigurationProfileInstallation = false` | rien ne peut être ajouté pour contourner |
+| `allowEraseContentAndSettings = false` | **« Effacer contenu et réglages » est grisé** : le dernier vecteur de l'option A est fermé |
+
+### Pas-à-pas (~45 min, dont la restauration)
+
+1. **Sauvegarder** l'iPhone (iCloud ou câble) — la mise sous supervision
+   **efface l'appareil**, une seule fois.
+2. Sur un Mac (le tien, celui d'un proche, 30 min d'accès suffisent) :
+   installer **Apple Configurator**, brancher l'iPhone en USB, le
+   déverrouiller et « Se fier » au Mac.
+3. Configurator → sélectionner l'iPhone → **Préparer** :
+   - Préparation *manuelle* ;
+   - **Superviser l'appareil : OUI** ; autoriser l'appairage si tu veux
+     pouvoir gérer depuis ce Mac ensuite ;
+   - ne PAS inscrire à un serveur MDM ;
+   - nom de l'organisation : ce que tu veux (« SelfShield »).
+   L'iPhone redémarre, vierge et supervisé.
+4. Restaurer ta sauvegarde (Finder/iTunes ou iCloud à la configuration).
+5. Configurator → l'iPhone → **Ajouter > Profils** → choisir
+   `SelfShield-Supervision.mobileconfig`. Il s'installe marqué
+   « non retirable ».
+6. Vérifier sur l'iPhone : Réglages > Général > VPN et gestion de
+   l'appareil > le profil apparaît sans bouton « Supprimer ».
+7. Confier le Mac superviseur — ou exporter l'**identité de supervision**
+   (Configurator > Réglages > Organisations > exporter) — à ta personne
+   de confiance. C'est elle qui détient la clé.
+
+### Limites résiduelles, pour être exact
+
+- Une **restauration DFU** (flash complet via un ordinateur) reste
+  physiquement possible, comme sur tout iPhone : friction maximale,
+  perte totale des données, et l'appareil ressort non configuré.
+- La liste noire du profil contient les plateformes + racines majeures ;
+  le gros du blocage vient du filtre adulte natif (`AutoFilterEnabled`)
+  + de la couche DNS. Sur appareil supervisé tu peux aussi ajouter
+  l'app SelfShield par-dessus pour la liste exhaustive Safari.
 
 C'est l'option « zéro bypass » réelle ; l'option A en est très proche pour
 un effort bien moindre.
