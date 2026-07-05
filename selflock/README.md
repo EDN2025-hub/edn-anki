@@ -121,8 +121,8 @@ Deux mécanismes complémentaires :
 |---|---|---|
 | **Filtre web Temps d'écran** (`ManagedSettings`) | Safari + toutes les WebView, **navigation privée désactivée automatiquement** | filtre adulte système d'Apple (`.auto`) + domaines ajoutés (Twitter/X, Reddit, racines majeures) |
 | **Safari Content Blocker** | Safari | base ThePornDude complète + consensus de listes publiques (~45 000 domaines) + regex de rotation, limite Safari 150 000 règles |
-| **App Store limité à 12+** | App Store | `appStore.maximumRating = 300` : les apps NSFW (classées 17+) sont **invisibles et ininstallables** |
-| **Mode strict anti-VPN** (option) | App Store | `denyAppInstallation` : plus aucune installation d'app possible — impossible d'installer un VPN ou un navigateur de contournement ; activable à tout moment, désactivable seulement hors verrou |
+| **Blocage ciblé des apps** | apps précises | shield par app via le sélecteur (Twitter, Reddit, VPN…) — pas de plafond d'âge global, qui bloquerait aussi Claude/ChatGPT/Firefox (classées 17+) ; les apps pornographiques n'existent pas sur l'App Store officiel |
+| **Mode strict anti-VPN** (option) | App Store | `denyAppInstallation` + App Store plafonné 12+ : plus aucune installation d'app possible — impossible d'installer un VPN ou un navigateur de contournement ; activable à tout moment, désactivable seulement hors verrou |
 | **Shield d'applications** (`FamilyControls`) | apps natives | blocage des apps choisies : Twitter, Reddit, navigateurs tiers (Chrome/Firefox n'appliquent pas le Content Blocker), VPN déjà installés |
 | **`denyAppRemoval`** | système | impossible de **supprimer** SelfShield (ou toute app) tant que la protection est active |
 | **Horloge verrouillée** | système | `requireAutomaticDateAndTime` : impossible d'avancer la date pour faire expirer le verrou |

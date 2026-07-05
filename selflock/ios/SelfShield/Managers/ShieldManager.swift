@@ -42,15 +42,12 @@ final class ShieldManager {
         store.webContent.blockedByFilter = .auto(extra, except: [])
 
         // ── App Store ─────────────────────────────────────────────────────
-        // Bloque le téléchargement d'apps NSFW : les apps classées 17+
-        // (toutes les apps à contenu adulte) deviennent invisibles et
-        // ininstallables. 300 = limite d'âge 12+.
-        store.appStore.maximumRating = 300
-        store.appStore.denyInAppPurchases = false
-
-        // Mode strict : plus AUCUNE installation d'app possible
-        // (anti-contournement : empêche d'installer un VPN, un navigateur
-        // exotique ou une app à navigateur intégré).
+        // Le blocage ciblé des apps (Twitter, Reddit, VPN…) se fait par le
+        // shield ci-dessous : les plafonds d'âge sont trop grossiers (12+
+        // bloquerait aussi Claude, ChatGPT, Firefox… classées 17+).
+        // En mode strict uniquement : App Store limité à 12+ ET plus
+        // aucune installation d'app (anti-VPN maximal).
+        store.appStore.maximumRating = strictMode ? 300 : nil
         store.application.denyAppInstallation = strictMode
 
         // ── Anti-contournement ────────────────────────────────────────────

@@ -39,15 +39,28 @@ Réglages > **Temps d'écran** :
    pornos, y compris les nouveaux domaines — cette liste ajoute les
    plateformes que le filtre ne juge pas « adultes » et les racines
    majeures.)
-4. **Restrictions** → **Achats dans l'iTunes et l'App Store** :
-   - **Installation d'apps : Non** (mode strict anti-VPN), ou à défaut
-   - **Apps** → limiter à **12 ans et moins** : les apps NSFW (17+) et la
-     plupart des navigateurs alternatifs deviennent ininstallables.
+4. **Apps Twitter/Reddit : blocage ciblé par Limites d'apps.**
+   ⚠️ N'utilise PAS le plafond d'âge « 12+ » ni « Installation d'apps :
+   Non » si tu veux garder des apps classées 17+ comme Claude, ChatGPT ou
+   Firefox — les classements d'âge bloquent par familles entières.
+   À la place :
+   - Temps d'écran > **Limites d'apps** > Ajouter une limite ;
+   - cocher la catégorie **Réseaux sociaux** entière ;
+   - durée **1 min/jour** + **« Bloquer à la fin de la limite »**.
+   Une limite de *catégorie* couvre automatiquement toute nouvelle app
+   installée dans cette catégorie : réinstaller Twitter/Reddit ou un
+   client alternatif ne sert à rien.
+   - Puis Temps d'écran > **Toujours autorisées** : y ajouter les réseaux
+     sociaux que tu veux conserver (WhatsApp, Instagram…) — ils échappent
+     à la limite. Ne pas y mettre Twitter/Reddit.
+   - Les apps NSFW, elles, sont déjà écartées par l'App Store standard
+     (Apple n'y accepte pas d'apps pornographiques) + le filtre web pour
+     Safari ; le plafond 12+/le blocage d'installation restent des options
+     « mode strict » si tu n'utilises aucune app 17+.
 5. **Restrictions** → interdire les **modifications de compte** et les
    **modifications de code**.
-6. Apps déjà installées à retirer : supprimer Twitter/X, Reddit, VPN,
-   navigateurs tiers AVANT l'étape 7 (après, la réinstallation sera
-   impossible).
+6. Supprimer les apps Twitter/X, Reddit, VPN et navigateurs tiers déjà
+   installées (la limite de catégorie couvrira toute réinstallation).
 
 ### 2. Le verrou : le code Temps d'écran détenu par un tiers
 

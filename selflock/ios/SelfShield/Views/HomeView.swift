@@ -33,8 +33,8 @@ struct HomeView: View {
                     layer("Filtre système Apple + \(C.screenTimeExtraDomains.count) domaines",
                           detail: "Safari & WebView, navigation privée désactivée, Twitter/X et Reddit bloqués. Appliqué sur l'appareil : insensible aux VPN et changements de DNS",
                           on: true)
-                    layer("App Store limité à 12+",
-                          detail: "Les apps NSFW (classées 17+) sont invisibles et ininstallables",
+                    layer("Blocage ciblé des apps",
+                          detail: "Twitter/Reddit bloqués individuellement via le sélecteur — Claude et les autres apps 17+ légitimes restent utilisables (pas de plafond d'âge hors mode strict)",
                           on: true)
                     layer("Persistance système",
                           detail: "Restrictions appliquées par iOS : survivent au redémarrage et à la fermeture de l'app ; ré-affirmées chaque jour par l'extension système",
