@@ -66,7 +66,9 @@ struct OnboardingView: View {
 
                 Section {
                     Button {
-                        ShieldManager.shared.apply(selection: state.activitySelection)
+                        ShieldManager.shared.apply(selection: state.activitySelection,
+                                                   strictMode: state.strictMode)
+                        ShieldManager.shared.startSystemReassertion()
                         state.protectionEnabled = true
                         Task { await BlocklistUpdater.shared.updateNow() }
                     } label: {

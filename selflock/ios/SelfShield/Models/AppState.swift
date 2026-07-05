@@ -34,6 +34,12 @@ final class AppState: ObservableObject {
         didSet { defaults.set(protectionEnabled, forKey: "protectionEnabled") }
     }
 
+    /// Mode strict : interdit toute installation d'app (anti-VPN).
+    /// Peut être ACTIVÉ à tout moment, mais désactivé seulement hors verrou.
+    @Published var strictMode: Bool {
+        didSet { defaults.set(strictMode, forKey: "strictMode") }
+    }
+
     @Published var lastBlocklistUpdate: Date? {
         didSet { defaults.set(lastBlocklistUpdate, forKey: "lastBlocklistUpdate") }
     }
@@ -45,6 +51,7 @@ final class AppState: ObservableObject {
 
     private init() {
         protectionEnabled = defaults.bool(forKey: "protectionEnabled")
+        strictMode = defaults.bool(forKey: "strictMode")
         lockUntil = defaults.object(forKey: "lockUntil") as? Date
         lastBlocklistUpdate = defaults.object(forKey: "lastBlocklistUpdate") as? Date
         if let data = defaults.data(forKey: "activitySelection"),

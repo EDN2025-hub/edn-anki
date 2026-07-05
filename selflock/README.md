@@ -66,8 +66,19 @@ n'entre dans la liste :
 
 ```bash
 python3 build_blocklist.py --dataset ../data/theporndude_sites.json \
-    --out ../data --resolve --crosscheck
+    --out ../data --resolve --crosscheck --merge-external
 ```
+
+### Couverture maximale : `--merge-external`
+
+Pour bloquer un maximum de sites au-delà de la base ThePornDude, le mode
+`--merge-external` fusionne trois blocklists publiques maintenues
+indépendamment (Blocklist Project, Sinfonietta, StevenBlack). Règle de
+consensus anti-faux-positifs : un domaine externe n'est inclus **que s'il
+figure dans au moins 2 des 3 listes**, et il reste soumis aux gardes
+allowlist/plateformes. Résultat : ~45 000 domaines, audités contre une
+liste de domaines mainstream (deviantart, quora, weebly… détectés et
+proprement écartés vers la garde plateformes).
 
 ## 3. Sites qui changent régulièrement de nom de domaine
 
@@ -98,12 +109,48 @@ Deux mécanismes complémentaires :
 | Couche | Portée | Mécanisme |
 |---|---|---|
 | **Filtre web Temps d'écran** (`ManagedSettings`) | Safari + toutes les WebView, **navigation privée désactivée automatiquement** | filtre adulte système d'Apple (`.auto`) + domaines ajoutés (Twitter/X, Reddit, racines majeures) |
-| **Safari Content Blocker** | Safari | la base ThePornDude complète (~milliers de domaines) + regex de rotation, limite Safari 150 000 règles |
-| **Shield d'applications** (`FamilyControls`) | apps natives | blocage des apps choisies : Twitter, Reddit, navigateurs tiers (Chrome/Firefox n'appliquent pas le Content Blocker) |
+| **Safari Content Blocker** | Safari | base ThePornDude complète + consensus de listes publiques (~45 000 domaines) + regex de rotation, limite Safari 150 000 règles |
+| **App Store limité à 12+** | App Store | `appStore.maximumRating = 300` : les apps NSFW (classées 17+) sont **invisibles et ininstallables** |
+| **Mode strict anti-VPN** (option) | App Store | `denyAppInstallation` : plus aucune installation d'app possible — impossible d'installer un VPN ou un navigateur de contournement ; activable à tout moment, désactivable seulement hors verrou |
+| **Shield d'applications** (`FamilyControls`) | apps natives | blocage des apps choisies : Twitter, Reddit, navigateurs tiers (Chrome/Firefox n'appliquent pas le Content Blocker), VPN déjà installés |
 | **`denyAppRemoval`** | système | impossible de **supprimer** SelfShield (ou toute app) tant que la protection est active |
+| **Horloge verrouillée** | système | `requireAutomaticDateAndTime` : impossible d'avancer la date pour faire expirer le verrou |
+| **Comptes verrouillés** | système | `lockAccounts` : impossible de se déconnecter de l'identifiant Apple |
+| **Médias explicites** | Musique/Podcasts/Livres/Films | contenu explicite, érotique et NC-17 bloqués |
 | **Verrou d'engagement** | app | durée de 24 h à 1 an ; code d'urgence aléatoire affiché une seule fois, stocké uniquement en SHA-256, à confier à un tiers |
 | **Profil DNS filtrant** (optionnel, `ios/dns/`) | tout l'appareil, toutes les apps | DoH Cloudflare for Families (1.1.1.3), profil marqué non-supprimable |
-| **Ré-application au premier plan** | app | les réglages sont ré-appliqués à chaque activation de l'app |
+
+### Persistance : redémarrage, fermeture, purge RAM
+
+Les restrictions Temps d'écran et le Content Blocker Safari sont stockés et
+appliqués par des **démons système iOS**, pas par l'app :
+
+- fermer l'app (swipe dans le sélecteur) **ne désactive rien** ;
+- la purge de RAM par iOS **ne désactive rien** ;
+- un **redémarrage** de l'iPhone recharge ces restrictions automatiquement.
+
+En plus, deux mécanismes de ré-affirmation tournent sans que l'app soit
+ouverte :
+
+1. **Extension `SelfShieldMonitor`** (DeviceActivity) : iOS l'exécute dans
+   un processus système au début/fin de chaque intervalle quotidien, et
+   elle ré-applique l'intégralité des réglages (même si l'app n'est jamais
+   relancée) ;
+2. **Ré-application au premier plan** : chaque ouverture de l'app ré-écrit
+   tous les réglages ;
+3. la mise à jour de la blocklist tourne en tâche de fond planifiée
+   (`BGAppRefreshTask`).
+
+### Pourquoi un VPN ou un changement de DNS ne suffisent pas
+
+Le filtre Temps d'écran, le shield d'apps et le Content Blocker sont
+appliqués **sur l'appareil, dans le moteur WebKit et au niveau du
+système** — pas sur le réseau. Un VPN ou un DNS tiers ne change donc rien :
+la page est bloquée avant même que la requête sorte. Seule la couche DNS
+optionnelle (profil `ios/dns/`) est contournable par VPN, c'est pour cela
+qu'elle n'est qu'une défense en profondeur. Le **mode strict** empêche en
+plus d'installer de nouvelles apps (VPN, navigateurs exotiques), et le
+shield permet de verrouiller celles déjà installées.
 
 ### Honnêteté sur le « non contournable »
 
@@ -125,7 +172,24 @@ Les limites résiduelles connues :
 Avec code Temps d'écran tiers + profil DNS + verrou SelfShield, le
 contournement exige en pratique d'effacer complètement l'appareil.
 
-## 5. Compilation (sur Mac)
+## 5. Installation sur votre iPhone
+
+Apple n'autorise l'installation d'apps que via l'App Store ou Xcode : il
+faut donc un **Mac avec Xcode** (les API FamilyControls ne peuvent pas être
+« sideloadées » par AltStore & co, qui ne signent pas cet entitlement).
+Comptez ~20 minutes la première fois.
+
+### Prérequis
+- un Mac (ou un accès à un Mac / Mac mini cloud) avec **Xcode 15+** ;
+- un **identifiant Apple** (compte gratuit possible : l'app expire alors
+  au bout de 7 jours et doit être re-signée ; compte développeur à
+  99 €/an : 1 an) ;
+- l'iPhone, en mode développeur (Réglages > Confidentialité et sécurité >
+  Mode développeur, après le premier branchement à Xcode).
+
+### Étapes
+
+## Compilation (détail)
 
 ```bash
 brew install xcodegen
@@ -134,20 +198,43 @@ xcodegen generate
 open SelfShield.xcodeproj
 ```
 
-1. Dans *Signing & Capabilities* : sélectionner votre équipe (les cibles
-   ont `DEVELOPMENT_TEAM` vide dans `project.yml`).
-2. Remplacer le préfixe `com.example.selfshield` (project.yml,
-   `Constants.swift`, `ContentBlockerRequestHandler.swift`) par votre
-   bundle id, et `group.com.example.selfshield` par votre App Group.
-3. Capability **Family Controls** requise sur l'App ID principal
-   (développement : cocher la capability ; distribution : demande
-   d'entitlement auprès d'Apple).
-4. Copier `../data/blockerList.json` dans `ContentBlocker/` (fait par le
-   pipeline ; un fichier de base est fourni).
-5. Compiler sur un **appareil réel** (les API FamilyControls ne
-   fonctionnent pas dans le simulateur).
-6. Sur l'iPhone : suivre l'onboarding (autorisation Temps d'écran,
-   activation de l'extension dans Réglages > Apps > Safari > Extensions,
-   sélection des apps à bloquer), puis poser le verrou.
-7. Optionnel mais recommandé : installer `ios/dns/SelfShield-DNS.mobileconfig`
-   et faire poser un code Temps d'écran par une personne de confiance.
+1. **Cloner ce dépôt et générer le projet** :
+   ```bash
+   git clone https://github.com/EDN2025-hub/edn-anki.git
+   cd edn-anki/selflock/ios
+   brew install xcodegen
+   xcodegen generate
+   open SelfShield.xcodeproj
+   ```
+2. **Identifiants** : remplacer le préfixe `com.example.selfshield` par le
+   vôtre (unique) dans `project.yml`, `Constants.swift`,
+   `ContentBlockerRequestHandler.swift` et `SelfShieldMonitor.swift` n'y
+   touche pas (il lit `C.appGroup`) ; remplacer aussi l'App Group
+   `group.com.example.selfshield`. Regénérer (`xcodegen generate`).
+3. **Signature** : dans Xcode, pour les 3 cibles (SelfShield,
+   ContentBlocker, Monitor) : *Signing & Capabilities* → cocher
+   *Automatically manage signing* et choisir votre Team. Vérifier que les
+   capabilities **Family Controls** (app + Monitor) et **App Groups**
+   (les 3 cibles, même groupe) sont présentes.
+4. **Blocklist** : copier `../data/blockerList.json` dans
+   `ContentBlocker/` (le pipeline la génère ; une version est fournie dans
+   le dépôt).
+5. **Compiler sur l'iPhone réel** (câble USB, sélectionner l'appareil dans
+   Xcode, ⌘R). Les API FamilyControls ne fonctionnent pas dans le
+   simulateur. Au premier lancement : Réglages > Général > VPN et gestion
+   de l'appareil > faire confiance à votre certificat développeur.
+6. **Sur l'iPhone, suivre l'onboarding de l'app** :
+   - autoriser Temps d'écran (popup système) ;
+   - activer l'extension : Réglages > Apps > Safari > Extensions >
+     SelfShield Blocker ;
+   - sélectionner les apps à bloquer (Twitter, Reddit, Chrome, Firefox,
+     apps VPN déjà installées…) ;
+   - activer la protection, puis **poser le verrou d'engagement** et
+     envoyer le code d'urgence à une personne de confiance.
+7. **Durcissement recommandé** :
+   - activer le **mode strict anti-VPN** dans l'app ;
+   - installer le profil DNS `ios/dns/SelfShield-DNS.mobileconfig`
+     (AirDrop → Réglages > Profil téléchargé > Installer) ;
+   - faire poser un **code Temps d'écran** par la personne de confiance
+     (Réglages > Temps d'écran > Utiliser un code) : sans ce code, même la
+     révocation de l'autorisation de SelfShield est impossible.

@@ -19,7 +19,9 @@ struct SelfShieldApp: App {
                         // premier plan : si quelque chose a été altéré,
                         // c'est restauré ici.
                         if state.protectionEnabled, ShieldManager.shared.isAuthorized {
-                            ShieldManager.shared.apply(selection: state.activitySelection)
+                            ShieldManager.shared.apply(selection: state.activitySelection,
+                                                       strictMode: state.strictMode)
+                            ShieldManager.shared.startSystemReassertion()
                         }
                     } else if phase == .background {
                         BlocklistUpdater.shared.scheduleRefresh()

@@ -207,33 +207,62 @@ def safari_rules(domains: list[str], subdomain_hosts: list[str],
     return rules
 
 
-def crosscheck(domains: set[str]) -> dict[str, int]:
-    """Croise avec des blocklists publiques indépendantes (confiance)."""
-    sources = [
-        "https://raw.githubusercontent.com/blocklistproject/Lists/master/porn.txt",
-        "https://raw.githubusercontent.com/Sinfonietta/hostfiles/master/pornography-hosts",
-    ]
-    counts = {d: 0 for d in domains}
-    for src in sources:
+# Blocklists porno publiques, maintenues indépendamment les unes des autres.
+EXTERNAL_SOURCES = [
+    "https://raw.githubusercontent.com/blocklistproject/Lists/master/porn.txt",
+    "https://raw.githubusercontent.com/Sinfonietta/hostfiles/master/pornography-hosts",
+    "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/porn-only/hosts",
+]
+
+# Hôtes locaux/parasites présents dans les fichiers hosts publics.
+_HOSTS_NOISE = {"localhost", "localhost.localdomain", "local", "broadcasthost",
+                "ip6-localhost", "ip6-loopback", "ip6-localnet",
+                "ip6-mcastprefix", "ip6-allnodes", "ip6-allrouters",
+                "ip6-allhosts", "0.0.0.0"}
+
+
+def fetch_external_lists() -> list[set[str]]:
+    """Télécharge chaque liste publique -> ensembles d'hôtes complets."""
+    out: list[set[str]] = []
+    for src in EXTERNAL_SOURCES:
+        seen: set[str] = set()
         try:
             req = urllib.request.Request(src, headers={"User-Agent": UA})
-            body = urllib.request.urlopen(req, timeout=60).read()
+            body = urllib.request.urlopen(req, timeout=120).read()
         except Exception as e:
-            print(f"  ! crosscheck indisponible: {src} ({e})", file=sys.stderr)
+            print(f"  ! liste externe indisponible: {src} ({e})", file=sys.stderr)
+            out.append(seen)
             continue
-        seen = set()
         for line in body.decode("utf-8", "replace").splitlines():
-            line = line.strip().lower()
-            if not line or line.startswith("#"):
+            line = line.split("#", 1)[0].strip().lower()
+            if not line:
                 continue
-            parts = line.split()
-            host = parts[-1] if parts else ""
+            host = line.split()[-1]
             host = host[4:] if host.startswith("www.") else host
-            seen.add(registrable(host))
-        for d in domains:
-            if d in seen:
-                counts[d] += 1
-    return counts
+            if host and host not in _HOSTS_NOISE and "." in host:
+                seen.add(host)
+        out.append(seen)
+        print(f"  liste externe: {len(seen)} hôtes ({src.split('/')[-1]})")
+    return out
+
+
+def crosscheck(domains: set[str], ext: list[set[str]]) -> dict[str, int]:
+    """Nb de listes publiques confirmant chaque domaine (confiance)."""
+    regs = [{registrable(h) for h in s} for s in ext]
+    return {d: sum(1 for r in regs if d in r) for d in domains}
+
+
+def external_consensus(ext: list[set[str]], allow: set[str],
+                       platforms: set[str]) -> set[str]:
+    """Domaines présents dans >= 2 listes publiques indépendantes
+    (consensus anti-faux-positifs), hors allowlist et plateformes."""
+    from collections import Counter
+    counts: Counter = Counter()
+    for s in ext:
+        counts.update({registrable(h) for h in s})
+    return {d for d, c in counts.items()
+            if c >= 2 and d not in allow and d not in platforms
+            and registrable(d) == d and "." in d}
 
 
 def main() -> None:
@@ -245,6 +274,9 @@ def main() -> None:
     ap.add_argument("--resolve-cache", default=".cache/redirects.json")
     ap.add_argument("--crosscheck", action="store_true",
                     help="croiser avec des blocklists publiques (réseau)")
+    ap.add_argument("--merge-external", action="store_true",
+                    help="fusionner les domaines confirmés par >= 2 listes "
+                         "publiques indépendantes (couverture maximale)")
     args = ap.parse_args()
 
     dataset = json.load(open(args.dataset, encoding="utf-8"))
@@ -320,9 +352,23 @@ def main() -> None:
     rotation = build_rotation_rules(blocked, adult_tokens)
 
     platform_blocked = sorted(user_platform_blocks)
-    all_domains = sorted(set(blocked) | set(platform_blocked) | {"theporndude.com"})
 
-    xcheck = crosscheck(set(blocked)) if args.crosscheck else {}
+    ext_lists: list[set[str]] = []
+    if args.crosscheck or args.merge_external:
+        ext_lists = fetch_external_lists()
+
+    merged_external: set[str] = set()
+    if args.merge_external:
+        merged_external = external_consensus(ext_lists, allow, platforms)
+        merged_external -= set(blocked)
+        # garde : mêmes assertions que la liste principale
+        assert not (merged_external & allow)
+        assert not (merged_external & platforms)
+
+    all_domains = sorted(set(blocked) | set(platform_blocked)
+                         | merged_external | {"theporndude.com"})
+
+    xcheck = crosscheck(set(blocked), ext_lists) if args.crosscheck else {}
 
     os.makedirs(args.out, exist_ok=True)
 
@@ -358,6 +404,9 @@ def main() -> None:
         f.write(f"- Entrées en quarantaine (allowlist) : **{len(quarantine)}**\n")
         f.write(f"- Domaines de sites morts (inclus, tagués) : **{len(dead)}**\n")
         f.write(f"- Regex de rotation de domaine : **{len(rotation)}**\n")
+        if args.merge_external:
+            f.write(f"- Domaines externes fusionnés (consensus >= 2 listes "
+                    f"publiques indépendantes) : **{len(merged_external)}**\n")
         f.write(f"- Redirecteurs d'affiliation non résolus (ignorés) : "
                 f"**{unresolved_redirectors}**"
                 f"{'' if args.resolve else ' (relancer avec --resolve)'}\n")

@@ -54,6 +54,31 @@ targets:
     dependencies:
       - target: ContentBlocker
         embed: true
+      - target: Monitor
+        embed: true
+
+  # Extension DeviceActivity : ré-affirme les restrictions chaque jour,
+  # exécutée par le SYSTÈME même si l'app est fermée/purgée de la RAM.
+  Monitor:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Monitor
+      - path: SelfShield/Managers/ShieldManager.swift
+      - path: SelfShield/Support/Constants.swift
+    info:
+      path: Monitor/Info.plist
+      properties:
+        CFBundleDisplayName: SelfShield Monitor
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity.monitor-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SelfShieldMonitor
+    entitlements:
+      path: Monitor/Monitor.entitlements
+      properties:
+        com.apple.developer.family-controls: true
+        com.apple.security.application-groups:
+          - group.com.example.selfshield
 
   ContentBlocker:
     type: app-extension

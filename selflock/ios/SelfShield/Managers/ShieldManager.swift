@@ -1,14 +1,18 @@
 import Foundation
 import FamilyControls
 import ManagedSettings
+import DeviceActivity
 
 /// Applique les restrictions Screen Time (ManagedSettings).
-/// C'est le cœur "non contournable" de l'app :
-///  - filtre de contenu adulte SYSTÈME d'Apple (Safari + vues WebKit,
-///    navigation privée automatiquement désactivée) ;
-///  - blocage de domaines supplémentaires (Twitter/Reddit + racines majeures) ;
-///  - interdiction de SUPPRIMER des apps (donc SelfShield lui-même) ;
-///  - shield des apps choisies (app Twitter/Reddit natives, navigateurs tiers).
+///
+/// PERSISTANCE : ces réglages sont stockés et appliqués par le démon système
+/// d'iOS, pas par l'app. Ils restent actifs après un redémarrage de
+/// l'iPhone, après la fermeture de l'app (swipe) et quand iOS purge l'app
+/// de la RAM. L'app ne sert qu'à les poser/retirer. En complément,
+/// l'extension SelfShieldMonitor (DeviceActivity) les ré-affirme chaque
+/// jour, même si l'app n'est jamais rouverte.
+///
+/// Ce fichier est compilé dans l'app ET dans l'extension Monitor.
 final class ShieldManager {
     static let shared = ShieldManager()
     private let store = ManagedSettingsStore(named: .init("selfshield"))
@@ -23,20 +27,49 @@ final class ShieldManager {
     }
 
     /// Active toutes les protections.
-    func apply(selection: FamilyActivitySelection) {
-        // 1. Filtre web système : le filtre "adulte" automatique d'Apple
-        //    + nos domaines. S'applique à Safari et à toutes les WebView,
-        //    et désactive la navigation privée.
+    /// - Parameters:
+    ///   - selection: apps/catégories choisies via FamilyActivityPicker.
+    ///   - strictMode: interdit TOUTE installation d'app (App Store masqué),
+    ///     ce qui neutralise aussi l'installation d'apps VPN/navigateurs
+    ///     pour contourner le filtre.
+    func apply(selection: FamilyActivitySelection, strictMode: Bool) {
+        // ── Web ───────────────────────────────────────────────────────────
+        // Filtre adulte SYSTÈME d'Apple + nos domaines. S'applique à Safari
+        // et à toutes les WebView, désactive la navigation privée.
+        // Ce filtre est appliqué au niveau du moteur WebKit, SUR l'appareil :
+        // changer de DNS ou activer un VPN ne le contourne PAS.
         let extra = Set(C.screenTimeExtraDomains.map { WebDomain(domain: $0) })
         store.webContent.blockedByFilter = .auto(extra, except: [])
 
-        // 2. Anti-contournement : interdit la suppression d'apps.
-        //    -> SelfShield ne peut pas être désinstallé tant que la
-        //       protection est active.
-        store.application.denyAppRemoval = true
+        // ── App Store ─────────────────────────────────────────────────────
+        // Bloque le téléchargement d'apps NSFW : les apps classées 17+
+        // (toutes les apps à contenu adulte) deviennent invisibles et
+        // ininstallables. 300 = limite d'âge 12+.
+        store.appStore.maximumRating = 300
+        store.appStore.denyInAppPurchases = false
 
-        // 3. Shield des apps sélectionnées (Twitter, Reddit, navigateurs
-        //    tiers sans content blocker…).
+        // Mode strict : plus AUCUNE installation d'app possible
+        // (anti-contournement : empêche d'installer un VPN, un navigateur
+        // exotique ou une app à navigateur intégré).
+        store.application.denyAppInstallation = strictMode
+
+        // ── Anti-contournement ────────────────────────────────────────────
+        // Impossible de SUPPRIMER des apps -> SelfShield ne peut pas être
+        // désinstallée tant que la protection est active.
+        store.application.denyAppRemoval = true
+        // Date/heure automatiques imposées : empêche d'avancer l'horloge
+        // pour faire expirer le verrou d'engagement.
+        store.dateAndTime.requireAutomaticDateAndTime = true
+        // Verrouille les comptes (empêche la déconnexion de l'identifiant
+        // Apple, autre voie classique de contournement).
+        store.account.lockAccounts = true
+
+        // ── Contenus explicites hors web ──────────────────────────────────
+        store.media.denyExplicitContent = true      // musique/podcasts explicites
+        store.media.denyBookstoreErotica = true     // livres érotiques
+        store.media.maximumMovieRating = 400        // films : max R (pas de NC-17)
+
+        // ── Apps sélectionnées (Twitter, Reddit, navigateurs tiers…) ──────
         store.shield.applications = selection.applicationTokens.isEmpty
             ? nil : selection.applicationTokens
         store.shield.applicationCategories = selection.categoryTokens.isEmpty
@@ -48,5 +81,26 @@ final class ShieldManager {
     /// Désactive tout (uniquement si le verrou est levé — contrôlé en amont).
     func clear() {
         store.clearAllSettings()
+        DeviceActivityCenter().stopMonitoring()
+    }
+
+    // MARK: - Ré-affirmation par le système (survit à la fermeture de l'app)
+
+    /// Démarre la surveillance DeviceActivity : iOS réveillera l'extension
+    /// SelfShieldMonitor à chaque début/fin d'intervalle (quotidien), qui
+    /// ré-appliquera les réglages — même si l'app est fermée, purgée de la
+    /// RAM ou jamais relancée après un redémarrage.
+    func startSystemReassertion() {
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: 0, minute: 0),
+            intervalEnd: DateComponents(hour: 23, minute: 59),
+            repeats: true
+        )
+        let center = DeviceActivityCenter()
+        do {
+            try center.startMonitoring(.init("selfshield.daily"), during: schedule)
+        } catch {
+            // déjà en cours de surveillance : rien à faire
+        }
     }
 }

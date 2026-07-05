@@ -31,7 +31,13 @@ struct HomeView: View {
 
                 Section("Couches de blocage") {
                     layer("Filtre système Apple + \(C.screenTimeExtraDomains.count) domaines",
-                          detail: "Safari & WebView, navigation privée désactivée, Twitter/X et Reddit bloqués",
+                          detail: "Safari & WebView, navigation privée désactivée, Twitter/X et Reddit bloqués. Appliqué sur l'appareil : insensible aux VPN et changements de DNS",
+                          on: true)
+                    layer("App Store limité à 12+",
+                          detail: "Les apps NSFW (classées 17+) sont invisibles et ininstallables",
+                          on: true)
+                    layer("Persistance système",
+                          detail: "Restrictions appliquées par iOS : survivent au redémarrage et à la fermeture de l'app ; ré-affirmées chaque jour par l'extension système",
                           on: true)
                     layer("Bloqueur Safari (base ThePornDude)",
                           detail: blockerOn
@@ -68,6 +74,24 @@ struct HomeView: View {
                 }
 
                 Section("Réglages") {
+                    Toggle(isOn: Binding(
+                        get: { state.strictMode },
+                        set: { newValue in
+                            // en période de verrou : on peut durcir, pas assouplir
+                            if newValue || !state.isLocked {
+                                state.strictMode = newValue
+                                ShieldManager.shared.apply(selection: state.activitySelection,
+                                                           strictMode: newValue)
+                            }
+                        })) {
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("Mode strict (anti-VPN)")
+                            Text("Interdit toute installation d'app : impossible d'installer un VPN ou un navigateur pour contourner le filtre")
+                                .font(.footnote).foregroundStyle(.secondary)
+                        }
+                    }
+                    .disabled(state.isLocked && state.strictMode)
+
                     Button("Modifier les apps bloquées…") { showPicker = true }
                         .disabled(state.isLocked)
                         .familyActivityPicker(isPresented: $showPicker,
@@ -93,7 +117,8 @@ struct HomeView: View {
             .navigationTitle("SelfShield")
             .task { blockerOn = await BlocklistUpdater.shared.blockerEnabled() }
             .onChange(of: state.activitySelection) { _ in
-                ShieldManager.shared.apply(selection: state.activitySelection)
+                ShieldManager.shared.apply(selection: state.activitySelection,
+                                           strictMode: state.strictMode)
             }
             .sheet(isPresented: $showLockSetup) { LockSetupView() }
             .sheet(isPresented: $showUnlock) { UnlockView() }
