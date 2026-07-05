@@ -1,5 +1,12 @@
 # Instructions pour Claude — dépôt edn-anki
 
+## Mémoire de session
+
+La conversation d'origine du projet SelfShield a été supprimée par
+l'utilisateur. TOUTE la mémoire (contexte, décisions, état de son
+installation, bugs corrigés, protocole du coffre) est archivée dans
+`selflock/MEMOIRE_SESSION.md` — la lire AVANT toute action sur ce projet.
+
 ## Coffre SelfShield (verrou volontaire de l'utilisateur)
 
 L'utilisateur (eddi.2016@gmail.com) a mis en place le 2026-07-05 un
