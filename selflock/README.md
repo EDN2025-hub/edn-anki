@@ -7,8 +7,19 @@ utilise la **base de données de ThePornDude** (l'annuaire de sites pour
 adultes le plus complet du web) comme source de vérité — extraite de façon
 structurée, jamais par scraping aveugle.
 
+**Trois façons de l'utiliser** (voir la matrice en fin de document) :
+- **iPhone sans payer ni réinstaller** : `iphone/GUIDE_SANS_COMPTE_DEV.md`
+  (configuration système permanente, 0 €, 0 ressource, recommandé) ;
+- **Mac / Windows** : `desktop/install-macos.sh` et
+  `desktop/install-windows.ps1` (hosts + DNS filtrant, aucun processus
+  résident) ;
+- **App iOS complète** : `ios/` (Xcode ; compte gratuit = re-signature
+  tous les 7 jours, compte développeur = 1 an).
+
 ```
 selflock/
+├── iphone/               Guide iPhone SANS compte développeur (permanent, 0 €)
+├── desktop/              Installateurs macOS et Windows (hosts + DNS)
 ├── blocklist-pipeline/   Extraction + validation de la base ThePornDude
 │   ├── fetch_theporndude.py     extraction structurée (endpoints JSON officiels)
 │   ├── build_blocklist.py       validation anti-faux-positifs + génération des règles
@@ -152,6 +163,37 @@ qu'elle n'est qu'une défense en profondeur. Le **mode strict** empêche en
 plus d'installer de nouvelles apps (VPN, navigateurs exotiques), et le
 shield permet de verrouiller celles déjà installées.
 
+### Qualité : tests et audit anti-faux-positifs
+
+`blocklist-pipeline/tests_pipeline.py` (offline, sans réseau) vérifie à
+chaque build : normalisation des hôtes, sûreté des regex de rotation sur un
+corpus piège (`documentcloud.org`, `cummins.com`, `sussex.ac.uk`,
+`dickssportinggoods.com`, `scunthorpe.gov.uk`…), règle de consensus
+externe, validité des règles Safari (100 % `block`, < 150 000), cohérence
+des fichiers de politique, et — si les données sont présentes —
+`blocklist ∩ allowlist = ∅`. Cette suite a déjà attrapé deux bugs réels
+avant mise en production (extraction de marque avec chiffres médians,
+domaine dupliqué entre allowlist et plateformes).
+
+```bash
+python3 blocklist-pipeline/tests_pipeline.py
+```
+
+### Ressources consommées
+
+Aucune couche n'exécute de processus résident :
+
+| Couche | Processus | RAM | CPU/GPU |
+|---|---|---|---|
+| Temps d'écran / ManagedSettings | démons iOS existants | 0 dédiée | 0 |
+| Safari Content Blocker | compilé par Safari en table binaire | ~qq Mo dans Safari | ~0 (lookup O(1) par requête) |
+| Fichier hosts (Mac/Win) | résolveur système existant | ~2 Mo de texte | 0 |
+| DNS filtrant | aucun (résolution côté serveur) | 0 | 0 |
+| App SelfShield | uniquement quand tu l'ouvres | ~30 Mo ouverte, 0 fermée | 0 en veille |
+
+L'app n'a **pas besoin de tourner** : fermée ou purgée de la RAM, toutes
+les protections restent actives (elles vivent dans les démons système).
+
 ### Honnêteté sur le « non contournable »
 
 Aucune app iOS non-MDM ne peut être contournable à 0 %. SelfShield empile
@@ -171,6 +213,34 @@ Les limites résiduelles connues :
 
 Avec code Temps d'écran tiers + profil DNS + verrou SelfShield, le
 contournement exige en pratique d'effacer complètement l'appareil.
+
+### Audit des vecteurs de contournement
+
+| Vecteur | Paré par |
+|---|---|
+| Supprimer l'app | `denyAppRemoval` (Temps d'écran) |
+| Fermer l'app / redémarrer / purge RAM | réglages appliqués par les démons système + ré-affirmation quotidienne `SelfShieldMonitor` |
+| VPN | filtre appliqué sur l'appareil (WebKit/système), pas sur le réseau — VPN inopérant ; installation de nouvelles apps VPN bloquée en mode strict ; VPN existants shieldables |
+| Changer de DNS | idem : le filtre ne dépend pas du DNS ; la couche DNS n'est qu'une défense en profondeur |
+| Navigation privée | désactivée automatiquement par le filtre système |
+| Autre navigateur (Chrome, Firefox…) | filtre système s'applique aux WebViews ; apps shieldables ; installation bloquée (12+/strict) |
+| Installer une app NSFW | App Store plafonné à 12+ |
+| Avancer la date pour expirer le verrou | `requireAutomaticDateAndTime` |
+| Se déconnecter de l'identifiant Apple | `lockAccounts` |
+| Désactiver Temps d'écran | code Temps d'écran détenu par une personne de confiance |
+| Retirer le profil DNS | `PayloadRemovalDisallowed` |
+| Mise à jour distante malveillante de la liste | le client n'accepte que des règles `block` (jamais d'autorisation) |
+| Effacer complètement l'iPhone | seul vecteur restant sans supervision : friction maximale, visible par la personne de confiance ; option supervision (`iphone/GUIDE_SANS_COMPTE_DEV.md`, option B) pour le fermer aussi |
+
+## Matrice d'installation
+
+| Plateforme | Méthode | Coût | Expiration | Fichier |
+|---|---|---|---|---|
+| iPhone (recommandé) | config système + profil DNS | 0 € | jamais | `iphone/GUIDE_SANS_COMPTE_DEV.md` (option A) |
+| iPhone (max absolu) | supervision Apple Configurator | 0 € (Mac requis 1×) | jamais | idem (option B) |
+| iPhone (app complète) | Xcode | 0 € (7 j) ou 99 €/an | 7 j / 1 an | `ios/` |
+| macOS | hosts + DNS + Temps d'écran | 0 € | jamais | `desktop/install-macos.sh` |
+| Windows 10/11 | hosts + DoH + Family Safety | 0 € | jamais | `desktop/install-windows.ps1` |
 
 ## 5. Installation sur votre iPhone
 

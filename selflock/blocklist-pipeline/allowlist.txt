@@ -40,8 +40,6 @@ bbc.co.uk
 cnn.com
 reuters.com
 apnews.com
-wikipedia.org
-wiktionary.org
 openstreetmap.org
 stackoverflow.com
 stackexchange.com

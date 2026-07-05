@@ -151,27 +151,40 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def build_rotation_rules(domains_with_meta: dict[str, dict],
                          adult_tokens: set[str]) -> dict[str, str]:
-    """Regex de rotation pour marques instables ou explicitement adultes."""
-    brands: dict[str, set[str]] = {}
+    """Regex de rotation pour marques instables ou explicitement adultes.
+
+    Le motif remplace chaque suite de chiffres du label par [0-9]* et en
+    tolère une en fin de label : pornhd3x -> pornhd[0-9]*x[0-9]*, ce qui
+    matche pornhd3x, pornhd4x, pornhdx… sur n'importe quel TLD, mais
+    JAMAIS un autre mot (le label est ancré de bout en bout).
+    """
+    groups: dict[str, set[str]] = {}   # marque sans chiffres -> labels vus
     for dom in domains_with_meta:
         label = dom.split(".")[0]
-        brand = re.sub(r"[0-9]+", "", label)
-        if len(brand) < 5:
+        stripped = re.sub(r"[0-9]+", "", label)
+        if len(stripped) < 5:
             continue
-        brands.setdefault(brand, set()).add(dom)
+        groups.setdefault(stripped, set()).add(label)
 
     rules: dict[str, str] = {}
-    for brand, doms in brands.items():
-        if brand in GENERIC_BRAND_WORDS:
+    for stripped, labels in groups.items():
+        if stripped in GENERIC_BRAND_WORDS:
             continue
-        has_token = any(t in brand for t in adult_tokens)
-        multi_variant = len(doms) >= 2
+        has_token = any(t in stripped for t in adult_tokens)
+        multi_variant = len(labels) >= 2 or any(
+            len([d for d in domains_with_meta
+                 if d.split(".")[0] == lb]) >= 2 for lb in labels)
         if not (has_token or multi_variant):
             continue
-        esc = re.escape(brand)
-        rules[brand] = (
-            rf"^https?://([^/:]*\.)?{esc}[0-9]*\.[a-z]{{2,24}}(:[0-9]+)?([/?]|$)"
-        )
+        for label in labels:
+            # chaque suite de chiffres devient [0-9]*, + une tolérée en fin
+            parts = re.split(r"[0-9]+", label)
+            core = "[0-9]*".join(re.escape(p) for p in parts)
+            if not core.endswith("[0-9]*"):
+                core += "[0-9]*"
+            rules[label] = (
+                rf"^https?://([^/:]*\.)?{core}\.[a-z]{{2,24}}(:[0-9]+)?([/?]|$)"
+            )
     return rules
 
 
@@ -391,6 +404,30 @@ def main() -> None:
     rules = safari_rules(all_domains, sorted(platform_subdomains), rotation)
     json.dump(rules, open(os.path.join(args.out, "blockerList.json"), "w"),
               separators=(",", ":"))
+
+    # Fichier hosts pour macOS/Windows/Linux (0 processus, 0 RAM dédiée) :
+    # apex + www ; les autres sous-domaines sont couverts par la couche DNS.
+    with open(os.path.join(args.out, "hosts_blocklist.txt"), "w",
+              encoding="utf-8") as f:
+        f.write("# SelfShield — fichier hosts généré par build_blocklist.py\n")
+        f.write("# Usage : voir selflock/desktop/\n")
+        for d in all_domains:
+            f.write(f"0.0.0.0 {d}\n0.0.0.0 www.{d}\n")
+        for h in sorted(platform_subdomains):
+            f.write(f"0.0.0.0 {h}\n")
+
+    # Liste courte pour saisie MANUELLE dans Temps d'écran (iPhone sans app) :
+    # plateformes choisies + racines majeures effectivement présentes.
+    majors = [d for d in [
+        "theporndude.com", "pornhub.com", "xvideos.com", "xnxx.com",
+        "xhamster.com", "redtube.com", "youporn.com", "spankbang.com",
+        "onlyfans.com", "fansly.com", "chaturbate.com", "stripchat.com",
+        "livejasmin.com", "bongacams.com", "cam4.com", "myfreecams.com",
+        "rule34.xxx", "nhentai.net", "e621.net", "f95zone.to", "erome.com",
+        "motherless.com", "eporner.com", "hqporner.com", "beeg.com",
+        "tnaflix.com", "porntrex.com", "youjizz.com", "txxx.com",
+    ] if d in set(all_domains)]
+    write_lines("screentime_denylist.txt", platform_blocked + majors)
 
     only_tpd = sorted(d for d, c in xcheck.items() if c == 0)
     with open(os.path.join(args.out, "report.md"), "w", encoding="utf-8") as f:
